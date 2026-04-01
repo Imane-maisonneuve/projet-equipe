@@ -1,0 +1,151 @@
+@import url("../base/base.css");
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  height: 100vh;
+  font-family:
+    Open Sans,
+    sans-serif;
+  background: #f1f1f1;
+}
+.container {
+  max-width: 1000px;
+  min-height: auto;
+  display: flex;
+  margin: 100px auto 0;
+  background: #fff;
+}
+
+.bloc-img {
+  position: relative;
+  flex-basis: 50%;
+  height: auto;
+  max-height: 450px;
+}
+.bloc-img {
+  position: relative;
+  flex-basis: 50%;
+  max-height: 480px;
+  margin-top: 40px;
+  overflow: hidden;
+}
+
+.bloc-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.bloc-img-secondaire {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #772244;
+  font-size: 5rem;
+  font-weight: 700;
+  font-family: serif;
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    -1px -1px 0 #fff,
+    1px 1px 0 #fff;
+  padding: 10px 40px;
+  background: rgba(255, 255, 255, 0.15);
+
+  border-radius: 10px;
+
+  pointer-events: none;
+}
+
+/* Bloc form */
+
+.bloc-form {
+  padding: 25px;
+  font-size: 1rem;
+}
+.bloc-form h2 {
+  font-size: 4.5em;
+}
+.already-txt {
+  font-size: 1.6em;
+  margin: 0.2em 0 2em;
+}
+.bloc-form label {
+  display: block;
+  padding-bottom: 0.2em;
+  font-size: 2em;
+}
+.bloc-form input {
+  display: block;
+  width: 100%;
+  padding: 0.8em;
+  margin-bottom: 1em;
+  font-size: 1.6em;
+  border: 1px solid rgba(51, 51, 51, 0.3);
+  border-radius: 0.3em;
+}
+.signup-btn {
+  display: block;
+  padding: 1em;
+  margin: 0.6em 0 2em;
+  width: 100%;
+  font-size: 1.6em;
+  background: var(--rouge-vin-profond);
+  color: #f1f1f1;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.erreur {
+  font-size: 18px;
+  margin-bottom: 5px;
+  margin-top: -5px;
+  color: var(--rouge-framboise-fonce);
+}
+
+@media screen and (max-width: 850px) {
+  .container {
+    flex-direction: column;
+    margin: 50px 0;
+  }
+
+  .bloc-form h2 {
+    font-size: 2.8em;
+  }
+
+  .bloc-img {
+    width: 100%;
+    order: 1;
+    height: auto;
+  }
+
+  .bloc-img img {
+    max-height: 300px;
+  }
+
+  .bloc-img-secondaire {
+    font-size: 3rem;
+    padding: 6px 20px;
+  }
+
+  .bloc-form {
+    order: 2;
+    width: 100%;
+  }
+  .erreur {
+    font-size: 16px;
+  }
+}

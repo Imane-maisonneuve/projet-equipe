@@ -47,9 +47,9 @@
 }
 
 @media (max-width: 595px) {
-  body {
+  /* body {
     margin-inline: var(--fs-20);
-  }
+  } */
 
   .navbar {
     position: sticky;

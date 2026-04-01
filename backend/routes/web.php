@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\UsagerController;
 use App\Http\Controllers\VinController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +15,8 @@ use App\Http\Controllers\VinController;
 |
 */
 
+//Vin
 Route::get('/vins', [VinController::class, 'index']);
+
+//Usager
+// Route::post('/usagers', [UsagerController::class, 'store']);

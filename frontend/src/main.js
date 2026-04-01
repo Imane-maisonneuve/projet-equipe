@@ -1,19 +1,21 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import './style.css'
-import App from './App.vue'
-import router from './router'
-import WineList from './components/WineList.vue'
+import { createApp } from "vue";
+import "./style.css";
+import App from "./App.vue";
+import router from "./router";
+import axios from "axios";
 
-const app = createApp(App)
-const pinia = createPinia()
+import { createPinia } from "pinia";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
-pinia.use(piniaPluginPersistedstate)
+axios.defaults.withCredentials = true;
 
-app.use(pinia)
-app.use(router)
+const app = createApp(App);
 
-app.component('WineList', WineList)
+const pinia = createPinia();
 
-app.mount('#app')
+pinia.use(piniaPluginPersistedstate);
+
+app.use(pinia);
+app.use(router);
+
+app.mount("#app");
