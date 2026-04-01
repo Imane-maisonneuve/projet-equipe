@@ -13,6 +13,19 @@ return new class extends Migration
     {
         Schema::create('vins', function (Blueprint $table) {
             $table->id();
+            $table->string('sku')->unique();
+            $table->string('name')->nullable();
+            $table->float('price')->nullable();
+            $table->string('country')->nullable();
+            $table->string('region')->nullable();
+            $table->string('grape')->nullable();
+            $table->string('alcohol')->nullable();
+            $table->string('sugar')->nullable();
+            $table->string('producer')->nullable();
+            $table->string('litre')->nullable();
+            $table->string('millesime')->nullable();
+            $table->string('image')->nullable();
+            $table->string('couleur')->nullable();
             $table->timestamps();
         });
     }
