@@ -6,7 +6,11 @@
     </div>
     <form @submit.prevent="creerUsager" class="bloc-form">
       <h2>Créer un compte</h2>
-      <p class="already-txt">Déjà membre ? <a href="#">Se connecter</a></p>
+      <p class="already-txt">Déjà membre ?
+        <router-link to="/connexion-usager">
+          Se Connecter
+        </router-link>
+      </p>
       <!-- Nom -->
       <div>
         <label>Nom :</label>
@@ -68,7 +72,7 @@ export default {
 
         console.log(response.data);
       } catch (erreur) {
-        if (erreur.response.status === 422) {
+        if (erreur.response && erreur.response.status === 422) {
           this.erreurs = erreur.response.data.erreurs;
         }
       }

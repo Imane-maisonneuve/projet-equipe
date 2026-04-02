@@ -5,9 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Usager extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class Usager extends Authenticatable
 {
     use HasFactory;
+
+    protected $table = 'usagers';
 
     protected $fillable = [
         'nom',
@@ -19,4 +23,19 @@ class Usager extends Model
         'mot_de_passe',
         'remember_token',
     ];
+
+    public function getAuthIdentifierName()
+    {
+        return 'courriel';
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->mot_de_passe;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
+    }
 }

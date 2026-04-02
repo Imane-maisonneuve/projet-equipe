@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import CreationUsager from "../pages/usager/creationUsager.vue";
-
+import CreationUsager from "../pages/usager/CreationUsager.vue";
 import Home from "../pages/Home.vue";
 import Cart from "../pages/Cart.vue";
-import Login from "../pages/Login.vue";
+import ConnexionUsager from "../pages/usager/ConnexionUsager.vue";
 
 const routes = [
   {
@@ -16,8 +15,8 @@ const routes = [
     component: Cart,
   },
   {
-    path: "/login",
-    component: Login,
+    path: "/connexion-usager",
+    component: ConnexionUsager,
   },
   {
     path: "/creation-usager",

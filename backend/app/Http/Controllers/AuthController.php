@@ -5,43 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Usager;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Connexion d'un Usager
+     * faire la validation des données formulaire
      */
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:users',
-            'password' => 'required|min:6|max:20'
+            'courriel' => 'required|email|exists:usagers',
+            'mot_de_passe' => 'required|min:6|string'
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $usager = Usager::where('courriel', $request->courriel)->first();
 
-        if(Auth::validate($credentials)){
-            $user = Auth::getProvider()->retrieveByCredentials($credentials);
-            Auth::login($user);
-            return response()->json(['user' => Auth::user(),
-                                    'message' => 'Connexion reussi'
-                                    ]);
+        if ($usager && Hash::check($request->mot_de_passe, $usager->mot_de_passe)) {
+            Auth::login($usager);
+            return response()->json([
+                'usager' => Auth::user(),
+                'message' => 'Connexion réussie'
+            ]);
         }
         else {
             return response()->json(['message' => 'Les informations de connexion ne sont pas valid'], 401);
@@ -49,31 +37,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
+     * Deconnexion de l'usager
      */
     public function destroy(string $id)
     {
