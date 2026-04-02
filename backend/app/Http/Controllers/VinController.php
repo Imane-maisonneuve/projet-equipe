@@ -154,6 +154,6 @@ class VinController extends Controller
                 ]
                 );
         }
-        return "Importation est terminé";
+        return "Importation est terminée";
     }
 }
