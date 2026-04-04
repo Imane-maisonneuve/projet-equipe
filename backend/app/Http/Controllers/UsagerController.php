@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\AuthController;
 
 class UsagerController extends Controller
 {
@@ -42,7 +43,7 @@ class UsagerController extends Controller
      */
 
     public function store(Request $request)
-    {        
+    {
         $validator = Validator::make($request->all(), [
             'nom' => 'required|string|max:255',
             'courriel' => 'required|email|unique:usagers,courriel',
@@ -69,7 +70,11 @@ class UsagerController extends Controller
         ], 201);
     }
 
-    
+    public function afficherUsager(Request $request)
+    {
+        return response()->json($request->user());
+    }
+
     /**
      * Met à jour les infos pesonnelles d'usager.
      * @param Request $request
@@ -82,7 +87,7 @@ class UsagerController extends Controller
         $usager = Usager::findOrFail($id);
 
         // Validation
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'nom' => 'required|string|max:255',
             'courriel' => 'required|email|unique:usagers,courriel,' . $id,
             'mot_de_passe' => 'nullable|string|min:6',
@@ -114,5 +119,4 @@ class UsagerController extends Controller
             'data' => $usager
         ]);
     }
-    
 }
