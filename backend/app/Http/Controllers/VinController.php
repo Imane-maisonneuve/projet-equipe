@@ -137,7 +137,7 @@ class VinController extends Controller
     {
         $total = $service->getWines()['total'];
         $pages =  (int)ceil($total/100);
-        set_time_limit(240); // Augmente le tepms d'attente
+        set_time_limit(240); // Augmente le temps d'attente
         if($pages || $pages !== 0){        
             for($i = 1; $i <= $pages; $i++){
                 $bouteilles = $this->getVinsSaq($service, $i);
@@ -145,17 +145,16 @@ class VinController extends Controller
                     Vin::updateOrCreate(
                         ['sku' => $bouteille['saq_id']],
                         [
-                        'name' => $bouteille['nom'],
-                        'price' => $bouteille['prix'],
-                        'country' => $bouteille['pays'],
+                        'nom' => $bouteille['nom'],
+                        'prix' => $bouteille['prix'],
+                        'pays' => $bouteille['pays'],
                         'region' => $bouteille['region'],
-                        'grape' => $bouteille['cepage'], 
-                        'alcohol' => $bouteille['degre_alcool'],
-                        'sugar' => $bouteille['taux_sucre'],
-                        'producer' => '', // à ajouter au besoin
-                        'litre' => $bouteille['format'],
-                        'millesime' => $bouteille['annee'],
-                        'image' => $bouteille['image_url'],
+                        'cepage' => $bouteille['cepage'], 
+                        'degre_alcool' => $bouteille['degre_alcool'],
+                        'taux_sucr' => $bouteille['taux_sucre'],
+                        'format' => $bouteille['format'],
+                        'annee' => $bouteille['annee'],
+                        'image_url' => $bouteille['image_url'],
                         'couleur' => $bouteille['couleur']
                         ]
                     );
