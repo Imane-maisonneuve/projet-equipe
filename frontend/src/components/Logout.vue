@@ -1,5 +1,5 @@
 <template>
-    <button @click="handleLogout">Logout</button>
+    <button @click="deconnexion">Deconnexion</button>
 </template>
 
 <script setup>
@@ -8,8 +8,8 @@
 
   const router = useRouter();
 
-  async function handleLogout() {
-    await api.post('/logout');
-    router.push('/login');
+  async function deconnexion() {
+    await api.post('/deconnexion');
+    router.push('/connexion-usager');
   }
 </script>

@@ -1,8 +1,8 @@
 /* GRID */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: var(--fs-20);
-  padding: var(--fs-20);
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: var(--fs-12);
+  padding: var(--fs-8);
   align-items: stretch;
 }

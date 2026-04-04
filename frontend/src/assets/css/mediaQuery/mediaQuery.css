@@ -1,14 +1,19 @@
 @import url("../base/base.css");
-@media (max-width: 768px) {
+
+@media (max-width: 3000px) {
+
   .alignement {
-    margin-top: -50px;
+    margin-top: var(--espace-gros-neg);
   }
+
   body {
     margin-inline: var(--fs-20);
   }
+
   .navbar {
     position: sticky;
   }
+
   .nav-links {
     gap: var(--fs-16);
     font-size: var(--fs-14);
@@ -17,55 +22,72 @@
   .logo img {
     height: 30px;
   }
+
   .media {
     display: flex;
   }
+
   .image {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: var(--espace-enorme);
+    max-height: var(--espace-enorme);
   }
+
   .badge.media {
     display: none;
   }
-  .card {
-    max-width: 250px;
-    margin: auto;
+
+  .catalogue-carte {
+    width: 330px;
+    margin: var(--espace-zero) auto;
   }
-  .name {
+
+  .nom {
     font-size: var(--fs-14);
   }
+
   .info-media {
     display: flex;
     flex-direction: column;
-    margin-top: var(--fs-16);
-    margin-bottom: 10px;
+    margin-top: var(--espace-gros);
+    gap: var(--espace-moyen-neg);
+
   }
 
   .info-media p {
-    margin-bottom: -12px;
+    margin-bottom: var(--espace-moyen-neg);
+  }
+
+  .btn.fixed-btn {
+    padding: var(--espace-moyen-petit) var(--espace-grand-mini);
+    height: auto;
+  }
+
+  .image-conteneur {
+    width: var(--espace-enorme);
   }
 }
 
 @media (max-width: 595px) {
-  /* body {
-    margin-inline: var(--fs-20);
-  } */
 
   .navbar {
     position: sticky;
   }
+
+  .image-conteneur {
+    width: var(--espace-enorme);
+  }
+
   /* cacher menu */
   .nav-links {
     position: absolute;
-    top: 70px;
-    right: 0;
+    top: var(--espace-gros-plus);
+    right: var(--espace-zero);
     background: var(--blanc-fonce);
     width: 100%;
     flex-direction: column;
     align-items: center;
     gap: var(--fs-16);
-    padding: var(--fs-20) 0;
-
+    padding: var(--fs-20) var(--espace-zero);
     display: none;
   }
 
@@ -75,168 +97,171 @@
     z-index: 10;
   }
 
-  /* afficher burger */
-  .burger {
-    display: block;
-    color: var(--rouge-vin-profond);
-  }
   .per-page {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: var(--espace-moyen);
   }
 
   .pagination {
     flex-direction: column;
   }
+
   .pages {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: var(--fs-16);
-    gap: 0;
+    gap: var(--espace-zero);
   }
+
   .media {
     display: flex;
   }
+
   .image {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: var(--espace-enorme);
+    max-height: var(--espace-enorme);
   }
+
   .badge.media {
     display: none;
   }
-  .card {
-    max-width: 250px;
-    margin: auto;
+
+  .catalogue-carte {
+    min-width: 270px;
+    margin: var(--espace-zero) auto;
   }
+
   .name {
     font-size: var(--fs-14);
   }
+
   .info-media {
     display: flex;
     flex-direction: column;
-    margin-top: var(--fs-16);
-    margin-bottom: 10px;
+    margin-top: var(--espace-gros);
+    gap: var(--espace-moyen-neg);
   }
 
-  .info-media p {
-    margin-bottom: -12px;
-  }
   .alignement {
-    margin-top: -50px;
+    margin-top: var(--espace-gros-neg);
   }
+
+  .btn.fixed-btn {
+    padding: var(--espace-moyen-petit) var(--espace-grand-mini);
+    height: auto;
+  }
+
 }
 
 @media (max-width: 579px) {
-  .btn.fixed-btn {
-    padding: 8px 12px;
-    height: auto;
-  }
-  .alignement {
-    margin-top: -50px;
-  }
 
-  .hover-info {
-    margin-bottom: -8px;
+  .alignement {
+    margin-top: var(--espace-gros-neg);
   }
 }
 
 @media (max-width: 415px) {
+
   body {
     overflow-x: hidden;
   }
 
   .btn.fixed-btn {
-    padding: 8px 12px;
+    padding: var(--espace-moyen-petit) var(--espace-grand-mini);
     height: auto;
   }
 
   .navbar {
     position: sticky;
   }
+
   .pages {
-    margin-top: 10px;
-    font-size: 14px;
+    margin-top: var(--espace-moyen);
+    font-size: var(--fs-14);
   }
 
   .title {
-    font-size: 16px;
+    font-size: var(--fs-16);
   }
+
   .media {
     display: flex;
   }
+
   .image {
-    max-width: 70px;
-    max-height: 70px;
+    max-width: var(--espace-gros-plus);
+    max-height: var(--espace-gros-plus);
   }
+
   .badge.media {
     display: none;
   }
-  .card {
+
+  .catalogue-carte {
     max-width: 250px;
     margin: auto;
     min-width: 250px;
     max-height: 135px;
   }
-  .name {
-    font-size: 12px;
+
+  .nom {
+    font-size: var(--fs-12);
   }
 
   .info-media {
     display: flex;
     flex-direction: column;
-    margin-top: -55px;
-    margin-bottom: 10px;
-  }
-
-  .info-media p {
-    margin-bottom: -12px;
+    margin-top: 45px;
+    gap: var(--espace-moyen-neg);
   }
 
   .alignement {
-    margin-top: -50px;
+    margin-top: var(--espace-gros-neg);
   }
 
   .couleur {
     display: flex;
     justify-content: start;
-    /* margin-left: -10px; */
   }
 }
 
-/* TABLET */
+/* TABLETTE */
 @media (max-width: 768px) {
+
   .cart {
     max-width: 100%;
-    padding: 10px;
+    padding: var(--espace-moyen);
   }
 
   .cart-item {
     flex-wrap: wrap;
-    gap: 10px;
+    gap: var(--espace-moyen);
   }
 
   .cart-info {
-    margin-left: 10px;
+    margin-left: var(--espace-moyen);
   }
+
 }
 
 /* MOBILE */
 @media (max-width: 415px) {
+
   .cart-item {
     flex-direction: column;
     align-items: flex-start;
-    padding: 12px;
+    padding: var(--espace-grand-mini);
   }
 
   .cart-img {
-    width: 80px;
+    width: var(--espace-enorme);
     align-self: center;
   }
 
   .cart-info {
-    margin: 10px 0;
+    margin: var(--espace-moyen) var(--espace-zero);
     text-align: center;
     width: 100%;
   }
@@ -255,25 +280,28 @@
   .cart-subtotal {
     width: 100%;
     text-align: right;
-    font-size: 16px;
+    font-size: var(--fs-16);
   }
 
   .cart-item button {
     width: 100%;
-    margin-top: 10px;
-    padding: 10px;
+    margin-top: var(--espace-moyen);
+    padding: var(--espace-moyen);
     background: #8b0036;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--espace-petit);
   }
 
   .continu {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
+    margin-top: var(--espace-grand);
     flex-wrap: wrap;
-    gap: 10px;
+    gap: var(--espace-moyen);
+  }
+  .image-conteneur {
+    width: 55px;
   }
 }

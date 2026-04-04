@@ -7,10 +7,6 @@ body {
   margin-inline: 120px;
 }
 
-.home {
-  margin-top: 60px;
-}
-
 :root {
   /* Couleurs*/
   --gris-clair: #efefef;
@@ -42,8 +38,7 @@ body {
 
   --rose-pale: rgb(246, 226, 226);
 
-  /* Font-size */
-
+  /* Tailles de police et d'espacement en REM */
   --fs-12: 0.75rem;
   --fs-14: 0.875rem;
   --fs-16: 1rem;
@@ -56,4 +51,23 @@ body {
   --fs-42: 2.625rem;
   --fs-64: 4rem;
   --fs-72: 4.5rem;
+
+  /* Tailles d'espacement en px */
+  --espace-gros-neg: -50px;
+  --espace-grand-neg: -20px;
+  --espace-grand-mini-neg: 12px;
+  --espace-moyen-neg: -10px;
+  --espace-petit-neg: -5px;
+  --espace-zero: 0px;
+  --espace-mini: 1px;
+  --espace-tres-petit: 3px;
+  --espace-petit: 5px;
+  --espace-moyen-mini: 6px;
+  --espace-moyen-petit: 8px;
+  --espace-moyen: 10px;
+  --espace-grand-mini: 12px;
+  --espace-grand: 20px;
+  --espace-gros: 50px;
+  --espace-gros-plus: 70px;
+  --espace-enorme: 80px;
 }

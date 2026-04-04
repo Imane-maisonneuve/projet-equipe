@@ -1,30 +1,32 @@
 <template>
     <div class="grid">
-      <WineCard
-        v-for="wine in wines"
-        :key="wine.id"
-        :wine="wine"
-        @add-to-cart="addToCart"
+      <VinCatalogueCarte
+        v-for="vin in vins"
+        :key="vin.id"
+        :vin="vin"
+        @ajout-du-vin="ajoutDuVin"
       />
     </div>
-  </template>
+</template>
 
-  <script>
-  import WineCard from "./WineCard.vue";
+<script>
+
+  import VinCatalogueCarte from "./VinCatalogueCarte.vue";
 
   export default {
     components: {
-      WineCard,
+      VinCatalogueCarte,
     },
 
     props: {
-      wines: Array,
+      vins: Array,
     },
     data() {},
     methods: {
-      addToCart(wine) {
-        this.$emit("add-to-cart", wine);
+      ajoutDuVin(vin) {
+        this.$emit("ajout-du-vin", vin);
       },
     },
   };
-  </script>
+
+</script>

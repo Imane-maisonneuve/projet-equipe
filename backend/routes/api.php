@@ -18,7 +18,7 @@ use App\Http\Controllers\UsagerController;
 
 
 Route::post('/usagers', [UsagerController::class, 'store']);
-
+Route::put('/usagers/{id}', [UsagerController::class, 'update']);
 Route::middleware('web')->group(function () {
     Route::post('/connexion-usager', [AuthController::class, 'store'])->name('connexion-usager');
     Route::post('/deconnexion', [AuthController::class, 'destroy'])->name('deconnexion');

@@ -1,13 +1,14 @@
 <template>
     <div class="home">
-      <div class="filtre">
-        <div class="alignement">
+      <h2>Catalogue</h2>
+      <!-- <div class="filtre"> -->
+        <!-- <div class="alignement">
           <button class="filte-button" @click="toggleFilter">
             <span class="filte-icon">☰</span> Filtres
           </button>
 
           <h1 class="title">Catalogue SAQ</h1>
-        </div>
+        </div> -->
 
         <!-- <div
           class="filtre-ouvrir"
@@ -73,9 +74,9 @@
             />
           </ul>
         </aside> -->
-      </div>
+      <!-- </div> -->
 
-      <WineGrid v-if="!loading" :wines="wines" @add-to-cart="handleAddToCart" />
+      <WineGrid v-if="!loading" :vins="vins" @ajout-du-vin="ajoutDuVin" />
 
       <!-- <Pagination
         v-if="!loading && totalPages > 1"
@@ -88,9 +89,9 @@
         @changePerPage="changePerPage"
       /> -->
     </div>
-  </template>
+</template>
 
-  <script>
+<script>
   import { useWineStore } from "../stores/wineStore";
   import WineGrid from "../components/WineGrid.vue";
   // import Pagination from "../components/Pagination.vue";
@@ -126,7 +127,7 @@
     },
 
     computed: {
-      wines() {
+      vins() {
         return this.wineStore.wines;
       },
 
@@ -191,7 +192,7 @@
         this.showFilter = !this.showFilter;
       },
 
-      handleAddToCart(wine) {
+      ajoutDuVin(wine) {
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
         const existing = cart.find((item) => item.id === wine.id);
         if (existing) {
@@ -243,4 +244,4 @@
       await this.fetchWines();
     },
   };
-  </script>
+</script>
