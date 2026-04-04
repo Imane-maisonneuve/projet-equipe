@@ -1,8 +1,8 @@
 <template>
-    <div class="home">
-      <h2>Catalogue</h2>
-      <!-- <div class="filtre"> -->
-        <!-- <div class="alignement">
+  <div class="home">
+    <h2>Catalogue</h2>
+    <!-- <div class="filtre"> -->
+    <!-- <div class="alignement">
           <button class="filte-button" @click="toggleFilter">
             <span class="filte-icon">☰</span> Filtres
           </button>
@@ -10,7 +10,7 @@
           <h1 class="title">Catalogue SAQ</h1>
         </div> -->
 
-        <!-- <div
+    <!-- <div
           class="filtre-ouvrir"
           :class="{ active: showFilter }"
           @click="toggleFilter"
@@ -74,11 +74,11 @@
             />
           </ul>
         </aside> -->
-      <!-- </div> -->
+    <!-- </div> -->
 
-      <WineGrid v-if="!loading" :vins="vins" @ajout-du-vin="ajoutDuVin" />
+    <WineGrid v-if="!loading" :vins="vins" @ajout-du-vin="ajoutDuVin" />
 
-      <!-- <Pagination
+    <!-- <Pagination
         v-if="!loading && totalPages > 1"
         :page="page"
         :totalPages="totalPages"
@@ -88,160 +88,156 @@
         @prev="prevPage"
         @changePerPage="changePerPage"
       /> -->
-    </div>
+  </div>
 </template>
 
 <script>
-  import { useWineStore } from "../stores/wineStore";
-  import WineGrid from "../components/WineGrid.vue";
-  // import Pagination from "../components/Pagination.vue";
-  // import FilterSection from "../components/FilterSelection.vue";
-  // import ColorFilter from "../components/ColorFilter.vue";
+import { useWineStore } from "../stores/wineStore";
+import WineGrid from "../components/WineGrid.vue";
+// import Pagination from "../components/Pagination.vue";
+// import FilterSection from "../components/FilterSelection.vue";
+// import ColorFilter from "../components/ColorFilter.vue";
 
-  export default {
-    components: {
-      WineGrid,
-      // Pagination,
-      // FilterSection,
-      // ColorFilter,
-    },
+export default {
+  components: {
+    WineGrid,
+    // Pagination,
+    // FilterSection,
+    // ColorFilter,
+  },
 
-    data() {
-      return {
-        showFilter: false,
-        page: 1,
-        perPage: 12,
-        selected: {
-          countries: [],
-          regions: [],
-          cepages: [],
-          prix: [],
-          formats: [],
-          degres: [],
-          producteurs: [],
-          millesimes: [],
-          couleur: [],
-        },
-        wineStore: useWineStore(),
-      };
-    },
-
-    computed: {
-      vins() {
-        return this.wineStore.wines;
-      },
-
-      loading() {
-        return this.wineStore.loading;
-      },
-
-      totalPages() {
-        return Math.ceil(this.wineStore.total / this.perPage);
-      },
-      countries() {
-        return this.wineStore.filters.countries || [];
-      },
-      regions() {
-        return this.wineStore.filters.regions || [];
-      },
-      cepages() {
-        return this.wineStore.filters.cepages || [];
-      },
-      prix() {
-        return this.wineStore.filters.prix || [];
-      },
-      formats() {
-        return this.wineStore.filters.formats || [];
-      },
-      degres() {
-        return this.wineStore.filters.degres || [];
-      },
-      producteurs() {
-        return this.wineStore.filters.producteurs || [];
-      },
-      millesimes() {
-        return this.wineStore.filters.millesimes || [];
-      },
-    },
-
-    watch: {
+  data() {
+    return {
+      showFilter: false,
+      page: 1,
+      perPage: 12,
       selected: {
-        handler() {
-          this.page = 1;
-          this.fetchWines();
-        },
-        deep: true,
+        countries: [],
+        regions: [],
+        cepages: [],
+        prix: [],
+        formats: [],
+        degres: [],
+        producteurs: [],
+        millesimes: [],
+        couleur: [],
       },
-      page() {
-        this.fetchWines();
-      },
-      perPage() {
+      wineStore: useWineStore(),
+    };
+  },
+
+  computed: {
+    vins() {
+      return this.wineStore.wines;
+    },
+
+    loading() {
+      return this.wineStore.loading;
+    },
+
+    totalPages() {
+      return Math.ceil(this.wineStore.total / this.perPage);
+    },
+    countries() {
+      return this.wineStore.filters.countries || [];
+    },
+    regions() {
+      return this.wineStore.filters.regions || [];
+    },
+    cepages() {
+      return this.wineStore.filters.cepages || [];
+    },
+    prix() {
+      return this.wineStore.filters.prix || [];
+    },
+    formats() {
+      return this.wineStore.filters.formats || [];
+    },
+    degres() {
+      return this.wineStore.filters.degres || [];
+    },
+    millesimes() {
+      return this.wineStore.filters.millesimes || [];
+    },
+  },
+
+  watch: {
+    selected: {
+      handler() {
         this.page = 1;
         this.fetchWines();
       },
+      deep: true,
+    },
+    page() {
+      this.fetchWines();
+    },
+    perPage() {
+      this.page = 1;
+      this.fetchWines();
+    },
+  },
+
+  methods: {
+    formatAlcohol(value) {
+      if (!value) return "-";
+      const num = parseFloat(value);
+      return isNaN(num) ? value : num.toFixed(2);
     },
 
-    methods: {
-      formatAlcohol(value) {
-        if (!value) return "-";
-        const num = parseFloat(value);
-        return isNaN(num) ? value : num.toFixed(2);
-      },
-
-      toggleFilter() {
-        this.showFilter = !this.showFilter;
-      },
-
-      ajoutDuVin(wine) {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const existing = cart.find((item) => item.id === wine.id);
-        if (existing) {
-          existing.quantity++;
-        } else {
-          cart.push({ ...wine, quantity: 1 });
-        }
-        localStorage.setItem("cart", JSON.stringify(cart));
-        this.$router.push("/cart");
-      },
-
-      async fetchWines() {
-        const filters = {};
-
-        if (this.selected.countries.length)
-          filters.countries = this.selected.countries;
-        if (this.selected.regions.length) filters.regions = this.selected.regions;
-        if (this.selected.cepages.length) filters.cepages = this.selected.cepages;
-        if (this.selected.prix.length) filters.prix = this.selected.prix;
-        if (this.selected.formats.length) filters.formats = this.selected.formats;
-        if (this.selected.degres.length) filters.degres = this.selected.degres;
-        if (this.selected.producteurs.length)
-          filters.producteurs = this.selected.producteurs;
-        if (this.selected.millesimes.length)
-          filters.millesimes = this.selected.millesimes;
-        if (this.selected.couleur.length) filters.couleur = this.selected.couleur;
-
-        await this.wineStore.fetchAllWines(this.page, this.perPage, filters);
-      },
-
-      goToPage(p) {
-        this.page = p;
-      },
-
-      nextPage() {
-        if (this.page < this.totalPages) this.page++;
-      },
-
-      prevPage() {
-        if (this.page > 1) this.page--;
-      },
-
-      changePerPage(val) {
-        this.perPage = val;
-      },
+    toggleFilter() {
+      this.showFilter = !this.showFilter;
     },
 
-    async mounted() {
-      await this.fetchWines();
+    ajoutDuVin(wine) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existing = cart.find((item) => item.id === wine.id);
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push({ ...wine, quantity: 1 });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      this.$router.push("/cart");
     },
-  };
+
+    async fetchWines() {
+      const filters = {};
+
+      if (this.selected.countries.length)
+        filters.countries = this.selected.countries;
+      if (this.selected.regions.length) filters.regions = this.selected.regions;
+      if (this.selected.cepages.length) filters.cepages = this.selected.cepages;
+      if (this.selected.prix.length) filters.prix = this.selected.prix;
+      if (this.selected.formats.length) filters.formats = this.selected.formats;
+      if (this.selected.degres.length) filters.degres = this.selected.degres;
+
+      if (this.selected.millesimes.length)
+        filters.millesimes = this.selected.millesimes;
+      if (this.selected.couleur.length) filters.couleur = this.selected.couleur;
+
+      await this.wineStore.fetchAllWines(this.page, this.perPage, filters);
+    },
+
+    goToPage(p) {
+      this.page = p;
+    },
+
+    nextPage() {
+      if (this.page < this.totalPages) this.page++;
+    },
+
+    prevPage() {
+      if (this.page > 1) this.page--;
+    },
+
+    changePerPage(val) {
+      this.perPage = val;
+    },
+  },
+
+  async mounted() {
+    await this.fetchWines();
+  },
+};
 </script>

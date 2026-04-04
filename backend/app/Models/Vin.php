@@ -10,17 +10,16 @@ class Vin extends Model
     use HasFactory;
     protected $fillable = [
         'sku',
-        'name',
-        'price',
-        'country',
+        'nom',
+        'prix',
+        'pays',
         'region',
-        'grape',
-        'alcohol',
-        'sugar',
-        'producer',
-        'litre',
-        'millesime',
-        'image',
+        'cepage',
+        'degre_alcool',
+        'taux_sucre',
+        'format',
+        'annee',
+        'image_url',
         'couleur'
     ];
 }

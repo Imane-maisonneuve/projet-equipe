@@ -28,7 +28,7 @@ class VinController extends Controller
         $query = Vin::query();
 
         if (!empty($filters['countries'])) {
-            $query->whereIn('country', $filters['countries']);
+            $query->whereIn('pays', $filters['countries']);
         }
 
         if (!empty($filters['regions'])) {
@@ -42,7 +42,7 @@ class VinController extends Controller
         if (!empty($filters['cepages'])) {
             $query->where(function ($q) use ($filters) {
                 foreach ($filters['cepages'] as $cepage) {
-                    $q->orWhere('grape', 'like', "%$cepage%");
+                    $q->orWhere('cepage', 'like', "%$cepage%");
                 }
             });
         }
@@ -52,9 +52,9 @@ class VinController extends Controller
                 foreach ($filters['prix'] as $prix) {
                     if (is_string($prix) && str_contains($prix, '-')) {
                         [$min, $max] = explode('-', $prix);
-                        $q->orWhereBetween('price', [(float)$min, (float)$max]);
+                        $q->orWhereBetween('prix', [(float)$min, (float)$max]);
                     } else {
-                        $q->orWhere('price', (float)$prix);
+                        $q->orWhere('prix', (float)$prix);
                     }
                 }
             });
@@ -65,15 +65,11 @@ class VinController extends Controller
         }
 
         if (!empty($filters['degres'])) {
-            $query->whereIn('alcohol', array_map('floatval', $filters['degres']));
-        }
-
-        if (!empty($filters['producteurs'])) {
-            $query->whereIn('producer', $filters['producteurs']);
+            $query->whereIn('degre_alcool', array_map('floatval', $filters['degres']));
         }
 
         if (!empty($filters['millesimes'])) {
-            $query->whereIn('millesime', $filters['millesimes']);
+            $query->whereIn('annee', $filters['millesimes']);
         }
 
         if (!empty($filters['couleur'])) {
@@ -83,15 +79,14 @@ class VinController extends Controller
         $wines = $query->paginate($perPage, ['*'], 'page', $page);
 
         $allFilters = [
-            'countries' => Vin::distinct()->pluck('country')->filter()->values(),
+            'countries' => Vin::distinct()->pluck('pays')->filter()->values(),
             'regions' => Vin::distinct()->pluck('region')->filter()->values(),
-            'cepages' => Vin::distinct()->pluck('grape')->filter()->values(),
-            'prix' => Vin::distinct()->pluck('price')->filter()->values(),
+            'cepages' => Vin::distinct()->pluck('cepage')->filter()->values(),
+            'prix' => Vin::distinct()->pluck('prix')->filter()->values(),
 
-            'formats' => Vin::distinct()->pluck('litre')->filter()->values(),
-            'degres' => Vin::distinct()->pluck('alcohol')->filter()->values(),
-            'producteurs' => Vin::distinct()->pluck('producer')->filter()->values(),
-            'millesimes' => Vin::distinct()->pluck('millesime')->filter()->values(),
+            'formats' => Vin::distinct()->pluck('format')->filter()->values(),
+            'degres' => Vin::distinct()->pluck('degre_alcool')->filter()->values(),
+            'millesimes' => Vin::distinct()->pluck('annee')->filter()->values(),
             'couleur' => Vin::distinct()->pluck('couleur')->filter()->values(),
         ];
 
@@ -137,7 +132,7 @@ class VinController extends Controller
     {
         $total = $service->getWines()['total'];
         $pages =  (int)ceil($total/100);
-        set_time_limit(240); // Augmente le tepms d'attente
+        set_time_limit(240); // Augmente le temps d'attente
         if($pages || $pages !== 0){        
             for($i = 1; $i <= $pages; $i++){
                 $bouteilles = $this->getVinsSaq($service, $i);
@@ -145,17 +140,16 @@ class VinController extends Controller
                     Vin::updateOrCreate(
                         ['sku' => $bouteille['saq_id']],
                         [
-                        'name' => $bouteille['nom'],
-                        'price' => $bouteille['prix'],
-                        'country' => $bouteille['pays'],
+                        'nom' => $bouteille['nom'],
+                        'prix' => $bouteille['prix'],
+                        'pays' => $bouteille['pays'],
                         'region' => $bouteille['region'],
-                        'grape' => $bouteille['cepage'], 
-                        'alcohol' => $bouteille['degre_alcool'],
-                        'sugar' => $bouteille['taux_sucre'],
-                        'producer' => '', // à ajouter au besoin
-                        'litre' => $bouteille['format'],
-                        'millesime' => $bouteille['annee'],
-                        'image' => $bouteille['image_url'],
+                        'cepage' => $bouteille['cepage'], 
+                        'degre_alcool' => $bouteille['degre_alcool'],
+                        'taux_sucre' => $bouteille['taux_sucre'],
+                        'format' => $bouteille['format'],
+                        'annee' => $bouteille['annee'],
+                        'image_url' => $bouteille['image_url'],
                         'couleur' => $bouteille['couleur']
                         ]
                     );
