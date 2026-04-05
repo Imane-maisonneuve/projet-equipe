@@ -1,0 +1,62 @@
+@import url("../base/base.css");
+
+.profil-page {
+  min-height: 100vh;
+  margin: 0;
+  padding: var(--espace-moyen);
+  background: var(--gris-clair-2);
+}
+
+.profil-carte,
+.profil-action-icone {
+  background: var(--gris-tres-clair-2);
+  border-radius: 15px;
+}
+
+.profil-carte {
+  margin: var(--espace-grand) auto;
+  padding: var(--espace-grand-mini);
+}
+
+.profil-titre {
+  margin-bottom: var(--espace-grand);
+  text-align: center;
+  font-size: var(--fs-24);
+  font-weight: 700;
+  color: var(--rouge-vin-profond);
+}
+
+.profil-contenu {
+  margin-bottom: var(--espace-grand);
+}
+
+.profil-data {
+  margin-bottom: var(--espace-moyen);
+  padding: var(--espace-moyen);
+  background: var(--gris-tres-clair-2);
+  border-radius: 10px;
+  color: var(--gris-fonce);
+  font-size: var(--fs-18);
+}
+
+.profil-action {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-moyen);
+}
+
+.profil-action-icone {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-grand);
+  margin-bottom: var(--espace-moyen);
+  padding: var(--espace-moyen);
+  font-size: var(--fs-18);
+  cursor: pointer;
+}
+
+.profil-icone {
+  width: var(--fs-32);
+  height: var(--fs-32);
+  color: var(--rouge-vin-profond);
+}

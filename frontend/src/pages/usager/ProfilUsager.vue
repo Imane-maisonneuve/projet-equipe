@@ -1,18 +1,35 @@
 <template>
-  <div class="container">
-    <p v-if="erreur">{{ erreur }}</p>
-
-    <div v-if="usager">
-      <p>Nom : {{ usager.nom }}</p>
-      <!-- <p>Prénpm : {{ usager.prenom }}</p> -->
-      <p>Courriel : {{ usager.courriel }}</p>
+  <div class="profil-page">
+    <div class="profil-carte">
+      <h1 class="profil-titre">Mon profil</h1>
+      <p v-if="erreur">{{ erreur }}</p>
+      <div v-if="usager" class="profil-contenu">
+        <p class="profil-data">Nom : {{ usager.nom }}</p>
+        <p class="profil-data">Prénom : {{ usager.nom }}</p>
+        <p class="profil-data">Courriel : {{ usager.courriel }}</p>
+      </div>
     </div>
-
-    <button type="button" class="signup-btn" @click="supprimerUsager">
-      Supprimer le compte
-    </button>
+    <div class="profil-action">
+      <div class="profil-action-icone">
+        <PencilIcon class="profil-icone" />
+        Modifier vos informations
+      </div>
+      <div class="profil-action-icone" @click="supprimerUsager">
+        <MinusCircleIcon class="profil-icone" />Supprimer votre compte
+      </div>
+      <div class="profil-action-icone">
+        <ArrowRightStartOnRectangleIcon class="profil-icone" />
+        Se déconnecter
+      </div>
+    </div>
   </div>
 </template>
+
+<script setup>
+import { MinusCircleIcon } from "@heroicons/vue/24/solid";
+import { PencilIcon } from "@heroicons/vue/24/solid";
+import { ArrowRightStartOnRectangleIcon } from "@heroicons/vue/24/solid";
+</script>
 
 <script>
 import api from "../../api";
