@@ -70,6 +70,8 @@ export default {
           mot_de_passe: this.mot_de_passe,
         });
 
+        this.$router.push("/connexion-usager");
+
         console.log(response.data);
       } catch (erreur) {
         if (erreur.response && erreur.response.status === 422) {

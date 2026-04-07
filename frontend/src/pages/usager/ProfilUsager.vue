@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <div class="profil-page">
     <div class="profil-carte">
       <h1 class="profil-titre">Mon profil</h1>
@@ -64,8 +65,12 @@ import { ArrowRightStartOnRectangleIcon } from "@heroicons/vue/24/solid";
 
 <script>
 import api from "../../api";
+import Navbar from "../../components/Navbar.vue";
 
 export default {
+  components: {
+    Navbar,
+  },
   data() {
     return {
       usager: null,

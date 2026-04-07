@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <div class="cart">
     <h1>Ajouter au Cellier</h1>
 
@@ -36,7 +37,12 @@
   </div>
 </template>
 <script>
+import Navbar from "../components/Navbar.vue";
+
 export default {
+  components: {
+    Navbar,
+  },
   data() {
     return {
       cart: [],

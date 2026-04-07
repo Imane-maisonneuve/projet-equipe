@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <div class="home">
     <h2>Catalogue</h2>
     <!-- <div class="filtre"> -->
@@ -94,6 +95,7 @@
 <script>
 import { useWineStore } from "../stores/wineStore";
 import WineGrid from "../components/WineGrid.vue";
+import Navbar from "../components/Navbar.vue";
 // import Pagination from "../components/Pagination.vue";
 // import FilterSection from "../components/FilterSelection.vue";
 // import ColorFilter from "../components/ColorFilter.vue";
@@ -101,6 +103,7 @@ import WineGrid from "../components/WineGrid.vue";
 export default {
   components: {
     WineGrid,
+    Navbar,
     // Pagination,
     // FilterSection,
     // ColorFilter,

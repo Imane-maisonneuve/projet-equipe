@@ -31,12 +31,14 @@
   import { ref } from 'vue';
   import api, { fetchCsrfToken } from '../../api';
   import { useRouter } from 'vue-router';
+  import { useAuthStore } from '../../stores/auth.js';
 
   const router = useRouter();
   const courriel = ref('');
   const mot_de_passe = ref('');
   const erreur = ref('');
   const loading = ref(false);
+  const authStore = useAuthStore();
 
   async function connexion() {
     loading.value = true;
@@ -48,6 +50,8 @@
         courriel: courriel.value,
         mot_de_passe: mot_de_passe.value
       });
+
+      await authStore.fetchUsager();
       router.push("/catalogue");
 
     } catch (err) {
