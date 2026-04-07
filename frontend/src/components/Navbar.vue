@@ -1,6 +1,6 @@
 <template>
   <nav class="mobile-navbar">
-    <router-link to="/" class="nav-item">
+    <router-link to="/catalogue" class="nav-item">
       <Home class="icon" /> <span>Accueil</span>
     </router-link>
     <router-link to="/celliers" class="nav-item">

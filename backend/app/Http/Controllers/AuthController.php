@@ -30,7 +30,6 @@ class AuthController extends Controller
                 'usager' => Auth::user(),
                 'message' => 'Connexion réussie'
             ]);
-            // return redirect()->route('/')->with('message', 'Connexion réussie');
         } else {
             return response()->json(['message' => 'Les informations de connexion ne sont pas valid'], 401);
         }

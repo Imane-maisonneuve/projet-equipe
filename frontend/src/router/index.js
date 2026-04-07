@@ -10,7 +10,7 @@ import ProfilUsager from "../pages/usager/ProfilUsager.vue";
 const routes = [
   {
     path: "/",
-    component: Home,
+    component: ConnexionUsager,
   },
   {
     path: "/liste-achats",
@@ -31,6 +31,10 @@ const routes = [
   {
     path: "/profil-usager",
     component: ProfilUsager,
+  },
+  {
+    path: "/catalogue",
+    component: Home,
   },
 ];
 

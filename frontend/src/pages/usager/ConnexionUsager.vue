@@ -30,7 +30,9 @@
 <script setup>
   import { ref } from 'vue';
   import api, { fetchCsrfToken } from '../../api';
+  import { useRouter } from 'vue-router';
 
+  const router = useRouter();
   const courriel = ref('');
   const mot_de_passe = ref('');
   const erreur = ref('');
@@ -42,10 +44,11 @@
 
     try {
       await fetchCsrfToken();
-      const response = await api.post('/connexion-usager', {
+      const response = await api.post('/', {
         courriel: courriel.value,
         mot_de_passe: mot_de_passe.value
       });
+      router.push("/catalogue");
 
     } catch (err) {
 
@@ -57,6 +60,7 @@
         erreur.value = 'Une erreur est survenue';
       }
     } finally {
+
       loading.value = false;
     }
   }
