@@ -47,3 +47,15 @@
 .bloc-modale-btn .btn-annuler {
   background: var(--gris-moyen);
 }
+
+.bloc-succes {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #d4edda;
+  color: #155724;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  text-align: center;
+}

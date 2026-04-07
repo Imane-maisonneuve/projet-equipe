@@ -60,3 +60,8 @@
   height: var(--fs-32);
   color: var(--rouge-vin-profond);
 }
+
+.profil-lien a {
+  text-decoration: none;
+  color: inherit;
+}

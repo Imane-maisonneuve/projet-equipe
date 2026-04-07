@@ -10,16 +10,20 @@
         <p class="profil-data">Courriel : {{ usager.courriel }}</p>
       </div>
     </div>
-    <div class="profil-action">
-      <div class="profil-action-icone">
+    <div class="profil-action profil-lien">
+      <router-link
+        v-if="usager"
+        :to="`/usager/modifier/${usager.id}`"
+        class="profil-action-icone"
+      >
         <PencilIcon class="profil-icone" />
         Modifier vos informations
-      </div>
+      </router-link>
       <div class="profil-action-icone" @click="supprimerUsager">
         <MinusCircleIcon class="profil-icone" />Supprimer votre compte
       </div>
       <div class="profil-action-icone" @click="deconnecterUsager">
-        <ArrowRightStartOnRectangleIcon class="profil-icone"/>
+        <ArrowRightStartOnRectangleIcon class="profil-icone" />
         Se déconnecter
       </div>
     </div>
@@ -103,9 +107,9 @@ export default {
     async deconnecterUsager() {
       try {
         //deconnexion du compte de l'usager
-        await api.post('/deconnexion');
+        await api.post("/deconnexion");
         // Redirige vers la page de connexion après la déconnexion
-        this.$router.push('/connexion-usager');
+        this.$router.push("/connexion-usager");
       } catch (erreur) {
         this.erreur = "Erreur lors de la deconnexion";
       }
