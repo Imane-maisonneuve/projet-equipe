@@ -3,7 +3,7 @@
 // use App\Http\Controllers\UsagerController;
 use App\Http\Controllers\VinController;
 use Illuminate\Support\Facades\Route;
-
+// use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

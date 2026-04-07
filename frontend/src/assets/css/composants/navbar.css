@@ -1,75 +1,103 @@
-@import url("../base/base.css");
-/* NAVBAR */
-.logo-name {
-  font-weight: bold;
-  font-size: var(--fs-24);
-  color: var(--rouge-vin-profond);
-}
-
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--fs-16) var(--fs-20);
+.mobile-navbar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
   background: var(--blanc-fonce);
-  border-bottom: 1px solid var(--gris-fonce-2);
-  position: sticky;
-}
-
-/* LOGO */
-.logo img {
-  height: var(--fs-40);
-}
-
-/* MENU */
-.nav-links {
+  border-top: 1px solid var(--gris-clair-2);
   display: flex;
-  list-style: none;
-  gap: var(--fs-26);
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 0;
+  z-index: 1000;
 }
 
-.nav-links a {
+.nav-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-decoration: none;
-  color: var(--gris-fonce);
-  font-weight: 500;
-  padding-bottom: 5px;
+  color: var(--gris-fonce-2);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.nav-item.router-link-active::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--rouge-vin-profond);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--rouge-vin-profond);
+}
+
+.profil {
   position: relative;
 }
 
-.nav-links a:hover {
-  color: var(--rouge-vin-profond);
-}
-
-.nav-links a::after {
-  content: "";
+.submenu {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 2px;
-  background: var(--rouge-vin-profond);
-  transition: 0.3s;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-.navbar {
+  bottom: 60px;
+  right: 0;
+  background: var(--blanc-fonce);
+  border: 1px solid var(--gris-clair-2);
+  border-radius: 8px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--fs-16) var(--fs-20);
-  background: var(--rose-pale);
-  border-bottom: 1px solid var(--gris-fonce-2);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 1px solid var(--noir-tres-transparent);
+  flex-direction: column;
+  padding: 8px;
+  min-width: 160px;
+  box-shadow: 0 4px 8px var(--noir-tres-transparent);
 }
 
-.burger {
-  display: none;
-  font-size: var(--fs-26);
-  cursor: pointer;
+.submenu a {
+  padding: 8px;
+  text-decoration: none;
+  color: var(--noir-profond);
+}
+
+.submenu a:hover {
+  background: var(--gris-tres-clair-2);
+}
+
+@media (min-width: 768px) {
+  .mobile-navbar {
+    top: 0;
+    bottom: auto;
+    border-top: none;
+    border-bottom: 1px solid var(--gris-clair-2);
+    justify-content: center;
+    gap: 40px;
+    padding: 12px 0;
+  }
+
+  .nav-item {
+    flex-direction: row;
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .router-link-active {
+    color: var(--rouge-vin-profond);
+    font-weight: 600;
+  }
+
+  .nav-item.router-link-active::after {
+    display: none;
+  }
+
+  .submenu {
+    top: 100%;
+    bottom: auto;
+    right: 0;
+    margin-top: 8px;
+  }
 }

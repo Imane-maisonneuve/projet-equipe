@@ -120,12 +120,12 @@ class UsagerController extends Controller
             'data' => $usager
         ]);
     }
-    
+
     /**
-    * Affiche les informations d’un usager spécifique.
-    * @param int $id 
-    * @return JsonResponse 
-    */
+     * Affiche les informations d’un usager spécifique.
+     * @param int $id 
+     * @return JsonResponse 
+     */
     public function show($id)
     {
         try {
@@ -141,7 +141,7 @@ class UsagerController extends Controller
             ], 500);
         }
     }
-    
+
 
     // Supprimer le compte de l'usager connecté
     public function supprimerUsager(Request $request)
