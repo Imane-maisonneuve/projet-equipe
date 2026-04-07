@@ -38,4 +38,10 @@ class Usager extends Authenticatable
     {
         return 'remember_token';
     }
+
+    // ajouter la relation avec Cellier
+    public function celliers()
+    {
+        return $this->hasMany(Cellier::class, 'usager_id');
+    }
 }

@@ -6,7 +6,7 @@
       <div v-if="usager" class="profil-contenu">
         <p class="profil-data">Nom : {{ usager.nom }}</p>
         <!-- todo : Afficher le prénom de l'usager -->
-        <p class="profil-data">Prénom : {{ usager.nom }}</p>
+        <!-- <p class="profil-data">Prénom : {{ usager.prenom }}</p> -->
         <p class="profil-data">Courriel : {{ usager.courriel }}</p>
       </div>
     </div>
@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  // Affiche la modale de confirmation de suppression si afficherModale est vrai
+  <!-- Affiche la modale de confirmation de suppression si afficherModale est vrai -->
   <div v-if="afficherModale">
     <div class="bloc-modale">
       <div class="bloc-modale-overlay"></div>
