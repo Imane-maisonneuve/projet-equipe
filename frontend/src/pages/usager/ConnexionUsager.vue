@@ -27,45 +27,56 @@
     </div>
 </template>
 
-<script setup>
-  import { ref } from 'vue';
-  import api, { fetchCsrfToken } from '../../api';
-  import { useRouter } from 'vue-router';
-  import { useAuthStore } from '../../stores/auth.js';
+<script>
+import api, { fetchCsrfToken } from "../../api";
+import { useAuthStore } from "../../stores/auth";
 
-  const router = useRouter();
-  const courriel = ref('');
-  const mot_de_passe = ref('');
-  const erreur = ref('');
-  const loading = ref(false);
-  const authStore = useAuthStore();
+export default {
+  data() {
+    return {
+      courriel: "",
+      mot_de_passe: "",
+      erreur: "",
+      loading: false,
+    };
+  },
+  methods: {
+    // Quand l'usager pese sur 'Se Connecter'
+    async connexion() {
+      this.loading = true;
+      this.erreur = "";
 
-  async function connexion() {
-    loading.value = true;
-    erreur.value = '';
+      try {
+        // Récupération du token CSRF
+        await fetchCsrfToken();
 
-    try {
-      await fetchCsrfToken();
-      const response = await api.post('/', {
-        courriel: courriel.value,
-        mot_de_passe: mot_de_passe.value
-      });
+        // Appel à l'API
+        const response = await api.post("/", {
+          courriel: this.courriel,
+          mot_de_passe: this.mot_de_passe,
+        });
 
-      await authStore.fetchUsager();
-      router.push("/catalogue");
+        // Mise à jour du store utilisateur
+        const authStore = useAuthStore();
+        await authStore.fetchUsager();
 
-    } catch (err) {
+        // Redirection vers le catalogue
+        this.$router.push("/catalogue");
 
-      if (err.response) {
-        erreur.value = 'Erreur de connexion';
-      } else if (err.request) {
-        erreur.value = 'Impossible de joindre le serveur';
-      } else {
-        erreur.value = 'Une erreur est survenue';
+        // Catch les erreurs
+      } catch (err) {
+        if (err.response) {
+          this.erreur = "Erreur de connexion";
+        } else if (err.request) {
+          this.erreur = "Impossible de joindre le serveur";
+        } else {
+          this.erreur = "Une erreur est survenue";
+        }
+        // arreter l'affichage de 'Connexion'
+      } finally {
+        this.loading = false;
       }
-    } finally {
-
-      loading.value = false;
-    }
-  }
+    },
+  },
+};
 </script>
