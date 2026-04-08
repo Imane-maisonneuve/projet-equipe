@@ -69,6 +69,10 @@
 
 @media (max-width: 595px) {
 
+  .espace-catalogue {
+    padding-bottom: var(--espace-gros-plus);
+  }
+
   .navbar {
     position: sticky;
   }
