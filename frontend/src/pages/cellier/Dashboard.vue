@@ -30,7 +30,20 @@
       <Plus class="icon" /> <span>Créer cellier</span>
     </button>
   </div>
-  <Cellier v-for="cellier in celliers" :key="cellier.id" :cellier="cellier" />
+  <Cellier
+    v-for="cellier in celliers"
+    :key="cellier.id"
+    :cellier="cellier"
+    @ouvrir-modale="ouvrirModale"
+  />
+  <ModalConfirmation
+    :show="afficherModale"
+    message="Voulez-vous supprimer ce cellier ?"
+    confirmText="Supprimer"
+    cancelText="Annuler"
+    @confirm="confirmerSuppression"
+    @cancel="afficherModale = false"
+  />
 </template>
 
 <script>
@@ -38,17 +51,20 @@ import axios from "axios";
 import Cellier from "../../components/Cellier.vue";
 import { Plus } from "lucide-vue-next";
 import Navbar from "../../components/Navbar.vue";
-
+import ModalConfirmation from "../../components/ModalConfirmation.vue";
 export default {
   components: {
     Cellier,
     Plus,
-    Navbar
+    Navbar,
+    ModalConfirmation,
   },
 
   data() {
     return {
       celliers: [],
+      afficherModale: false,
+      idASupprimer: null,
     };
   },
 
@@ -67,6 +83,29 @@ export default {
     },
     creerCellier() {
       this.$router.push("/creer-cellier");
+    },
+    ouvrirModale(id) {
+      this.idASupprimer = id;
+      this.afficherModale = true;
+    },
+    async confirmerSuppression() {
+      try {
+        // on attend que la requête DELETE se termine
+        await axios.delete(
+          `http://127.0.0.1:8000/api/supprimer-cellier/${this.idASupprimer}`
+        );
+
+        // mettre à jour la liste des celliers
+        this.celliers = this.celliers.filter((c) => c.id !== this.idASupprimer);
+
+        // fermer la modale
+        this.afficherModale = false;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    supprimerDansListe(id) {
+      this.celliers = this.celliers.filter((c) => c.id !== id);
     },
   },
 };

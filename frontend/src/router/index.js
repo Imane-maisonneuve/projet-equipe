@@ -81,7 +81,7 @@ router.beforeEach(async (to, from, next) => {
   //verifie si fetchUsager est en cours grace a authStore.loading, et rejoue la verification pour vraiment voir si l'usager est null ou pas
   if (authStore.loading) {
     await new Promise((resolve) => setTimeout(resolve, 50));
-    return next(to);
+    return next();
   }
 
   // Utile pour rester connecter au rechargement de la page
