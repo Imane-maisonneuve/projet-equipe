@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <div class="container">
     <form @submit.prevent="modifierCellier" class="bloc-form">
       <h1 class="profil-titre">Modifier le cellier</h1>
@@ -18,9 +19,13 @@
 </template>
 
 <script>
+import Navbar from "../../components/Navbar.vue";
 import api from "../../api";
 
 export default {
+  components: {
+    Navbar,
+  },
   data() {
     return {
       nom: "",
@@ -42,6 +47,7 @@ export default {
           nom: this.nom,
         });
         this.cellier = response.data;
+        this.$router.push("/dashboard");
       } catch (erreur) {
         if (erreur.response.data.errors) {
           this.erreurs = erreur.response.data.errors;

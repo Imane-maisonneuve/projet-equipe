@@ -10,7 +10,7 @@
       <ShoppingBasket class="icon" /><span>Achats</span>
     </router-link>
     <router-link to="/profil-usager" class="nav-item">
-      <User class="icon" /><span>Profile</span>
+      <User class="icon" /><span>Profil</span>
     </router-link>
   </nav>
 </template>

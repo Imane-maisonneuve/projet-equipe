@@ -50,7 +50,7 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/modifier-cellier",
+    path: "/modifier-cellier/:id",
     component: ModifierCellier,
     meta: { requiresAuth: true },
   },
