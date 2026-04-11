@@ -1,8 +1,8 @@
 <template>
-  <Navbar />
   <div v-if="messageSucces" class="bloc-modale-succes">
     {{ messageSucces }}
   </div>
+  <div v-else><Navbar /></div>
   <div class="container">
     <div class="bloc-img">
       <img src="../../assets/img/image.png" />
@@ -62,7 +62,7 @@ export default {
       try {
         const id = this.$route.params.id;
         const response = await axios.get(
-          `http://localhost:8000/api/usagers/${id}`,
+          `http://localhost:8000/api/usagers/${id}`
         );
 
         this.nom = response.data.data.nom;
