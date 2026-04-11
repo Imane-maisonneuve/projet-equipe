@@ -2,7 +2,7 @@
   <Navbar />
   <div class="profil-page">
     <div class="banniere">
-      <h2 class="banniere-titre">Gérez vote compte</h2>
+      <h2 class="banniere-titre">Mon profil</h2>
     </div>
     <div class="profil-carte">
       <p v-if="erreur">{{ erreur }}</p>

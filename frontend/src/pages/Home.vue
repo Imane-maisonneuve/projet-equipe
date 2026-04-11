@@ -2,7 +2,7 @@
   <Navbar />
   <div class="home">
     <div class="banniere">
-      <h2 class="banniere-titre">Explorez les vins de la SAQ</h2>
+      <h2 class="banniere-titre">Catalogue des vins</h2>
     </div>
     <!-- <div class="filtre"> -->
     <!-- <div class="alignement">

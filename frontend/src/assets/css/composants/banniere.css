@@ -2,15 +2,11 @@
 
 .banniere {
   text-align: center;
-
   background: var(--rouge-vin-profond);
-  border-radius: 10px;
-  box-shadow: 0 5px 10px var(--noir-tres-transparent);
 }
 
 .banniere-titre {
   font-size: var(--fs-24);
   color: var(--blanc-fonce);
-
   padding: var(--espace-grand);
 }

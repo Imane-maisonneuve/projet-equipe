@@ -2,13 +2,13 @@
   <Navbar />
 
   <div class="banniere">
-    <h1 class="banniere-titre">Maîtrisez votre cave comme un sommelier</h1>
+    <h1 class="banniere-titre">Mes celliers</h1>
   </div>
 
   <div class="entete-cellier">
-    <h2>Vos celliers</h2>
+    <h2></h2>
     <button class="btn btn-entete-cellier" @click="creerCellier">
-      <Plus class="icon" /> <span>Créer cellier</span>
+      <Plus class="icon" /> <span>Nouveau</span>
     </button>
   </div>
   <Cellier
