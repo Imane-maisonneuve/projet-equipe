@@ -34,18 +34,6 @@
           {{ erreurs.courriel[0] }}
         </div>
       </div>
-
-      <div>
-        <label>Mot de passe :</label>
-        <input
-          type="password"
-          v-model="mot_de_passe"
-          placeholder="6 caractères au minimum"
-        />
-        <div v-if="erreurs.mot_de_passe" class="erreur">
-          {{ erreurs.mot_de_passe[0] }}
-        </div>
-      </div>
       <button type="submit" class="signup-btn">Modifier votre compte</button>
     </form>
   </div>
@@ -53,7 +41,7 @@
 <script>
 import axios from "axios";
 import Navbar from "../../components/Navbar.vue";
-
+import api, { fetchCsrfToken } from "../../api";
 export default {
   components: {
     Navbar,
@@ -80,7 +68,7 @@ export default {
       try {
         const id = this.$route.params.id;
         const response = await axios.get(
-          `http://localhost:8000/api/usagers/${id}`,
+          `http://localhost:8000/api/usagers/${id}`
         );
 
         this.nom = response.data.data.nom;
@@ -100,15 +88,13 @@ export default {
       this.erreurs = {};
       this.messageSucces = "";
       try {
+        await fetchCsrfToken();
         const id = this.$route.params.id; // récupère l'id dans l'URL
-        const response = await axios.put(
-          `http://localhost:8000/api/usagers/${id}`,
-          {
-            nom: this.nom,
-            courriel: this.courriel,
-            mot_de_passe: this.mot_de_passe,
-          },
-        );
+        const response = await api.put(`/usagers/${id}`, {
+          nom: this.nom,
+          courriel: this.courriel,
+          mot_de_passe: this.mot_de_passe,
+        });
         this.messageSucces = "Votre compte a été mis à jour avec succès !";
         setTimeout(() => {
           this.messageSucces = "";

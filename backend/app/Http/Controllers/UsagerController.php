@@ -91,7 +91,6 @@ class UsagerController extends Controller
         $validator = Validator::make($request->all(), [
             'nom' => 'required|string|max:255',
             'courriel' => 'required|email|unique:usagers,courriel,' . $id,
-            'mot_de_passe' => 'required|string|min:6',
         ], $this->messages);
 
         // retourne erreur
