@@ -9,12 +9,6 @@
       <div class="bloc-img-secondaire">Vino</div>
     </div>
     <form @submit.prevent="updateUsager" class="bloc-form">
-      <h2>Compte à modifier</h2>
-      <p class="already-txt">
-        Retourner ?
-        <router-link to="/connexion-usager"> Se Connecter </router-link>
-      </p>
-
       <div>
         <label>Nom :</label>
         <input type="text" v-model="nom" placeholder="Votre nom" />
@@ -68,7 +62,7 @@ export default {
       try {
         const id = this.$route.params.id;
         const response = await axios.get(
-          `http://localhost:8000/api/usagers/${id}`
+          `http://localhost:8000/api/usagers/${id}`,
         );
 
         this.nom = response.data.data.nom;
