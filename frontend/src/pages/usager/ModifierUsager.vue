@@ -43,6 +43,7 @@ export default {
   data() {
     return {
       nom: "",
+      ancien_courriel: "",
       courriel: "",
       mot_de_passe: "",
       erreurs: {},
@@ -67,6 +68,7 @@ export default {
 
         this.nom = response.data.data.nom;
         this.courriel = response.data.data.courriel;
+        this.ancien_courriel = response.data.data.courriel;
       } catch (error) {
         console.error("Erreur getUsager:", error);
       }
@@ -91,7 +93,10 @@ export default {
         this.messageSucces = "Votre compte a été mis à jour avec succès !";
         setTimeout(() => {
           this.messageSucces = "";
-          this.$router.push("/connexion-usager");
+          if (this.ancien_courriel !== this.courriel) {
+            this.ancien_courriel = this.courriel;
+            this.$router.push("/connexion-usager");
+          }
         }, 3000);
       } catch (erreur) {
         if (erreur.response && erreur.response.status === 422) {
