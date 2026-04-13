@@ -22,4 +22,9 @@ class Vin extends Model
         'image_url',
         'couleur'
     ];
+
+    public function cellierVins()
+    {
+        return $this->hasMany(CellierVin::class);
+    }
 }

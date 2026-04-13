@@ -20,6 +20,11 @@ class Cellier extends Model
         return $this->belongsTo(Usager::class);
     }
 
+    public function cellierVins()
+    {
+        return $this->hasMany(CellierVin::class);
+    }
+
     // ajouter la relation avec CellierVin
     // public function cellier_vin()
     // {
