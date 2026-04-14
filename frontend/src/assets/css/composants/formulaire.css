@@ -1,3 +1,4 @@
+@import url("../base/base.css");
 html {
   font-size: 87%;
 }
@@ -79,13 +80,16 @@ body {
 .bloc-form label {
   display: block;
   padding-bottom: 0.2em;
+  margin-bottom: var(--espace-petit);
   font-size: 2em;
 }
-.bloc-form input {
+.bloc-form input,
+.bloc-form select {
   display: block;
   width: 100%;
   padding: 0.8em;
-  margin-bottom: 1em;
+  /* margin-bottom: 1em; */
+  margin-bottom: var(--espace-grand);
   /* font-size: 1.6em; */
   font-size: 16px !important;
   border: 1px solid rgba(51, 51, 51, 0.3);
