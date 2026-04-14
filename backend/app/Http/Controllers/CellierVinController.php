@@ -4,10 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\CellierVin;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 
 class CellierVinController extends Controller
 {
+    // liste des messages d'avertissement
+    protected $messages = [
+        'cellier_id.required' => 'Le nom du cellier est obligatoire.',
+        'cellier_id.exists' => 'Le cellier sélectionné est invalide.',
+        'vin_id.required' => 'Le nom du vin est obligatoire.',
+        'vin_id.exists' => 'Le vin sélectionné est invalide.',
+        'quantite.required' => 'La quantité est obligatoire.',
+        'quantite.min' => 'La quantité doit être au moins 1.',
+        'quantite.integer' => 'Le nombre doit être entier',
+    ];
+
     /**
      * Display a listing of the resource.
      */
@@ -35,15 +46,7 @@ class CellierVinController extends Controller
                 'cellier_id' => 'required|exists:celliers,id',
                 'vin_id' =>     'required|exists:vins,id',
                 'quantite' => 'required|integer|min:1',
-            ],
-            [
-                'cellier_id.required' => 'Le nom du cellier est obligatoire.',
-                'cellier_id.exists' => 'Le cellier sélectionné est invalide.',
-                'vin_id.required' => 'Le nom du vin est obligatoire.',
-                'vin_id.exists' => 'Le vin sélectionné est invalide.',
-                'quantite.required' => 'La quantité est obligatoire.',
-                'quantite.min' => 'La quantité doit être au moins 1.',
-            ]
+            ], $this->messages            
         );
 
         // Vérification de l'existence du vin dans le cellier
@@ -82,17 +85,42 @@ class CellierVinController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CellierVin $cellierVin)
+    public function edit($vin_id)
     {
-        //
+       //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CellierVin $cellierVin)
-    {
-        //
+    public function update(Request $request, $vin_id)
+    {        
+        // Trouver cellier_vin
+        $cellierVin = CellierVin::findOrFail($vin_id);
+
+        // Validation
+        $validator = Validator::make($request->all(), [
+            'quantite' => 'required|integer|min:1',
+        ], $this->messages);
+
+        // retourne erreur
+        if ($validator->fails()) {
+            return response()->json([
+                'erreurs' => $validator->errors()
+            ], 422);
+        }
+
+        $validated = $validator->validated();
+
+        // Mise à jour
+        $cellierVin->quantite = $validated['quantite'];
+        $cellierVin->save();
+
+         // Réponse
+         return response()->json([
+            'message' => 'Quantité est mis à jour avec succès',
+            'data' => $cellierVin
+        ]);
     }
 
     /**
