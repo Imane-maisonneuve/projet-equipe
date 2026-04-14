@@ -1,0 +1,150 @@
+.entete {
+  padding: 15px 20px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.image-titre {
+  display: flex;
+  gap: 1px;
+}
+
+.titre {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--rouge-framboise-fonce);
+  margin: 0;
+}
+
+.logo {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.vin-carte,
+.vin-infos {
+  width: 100%;
+  background: var(--blanc-clair);
+  margin-inline: -10px;
+  padding: 10px;
+  border: 1px solid var(--gris-clair);
+  border-radius: 5px;
+}
+
+.vin-carte {
+  overflow: hidden;
+}
+
+.vin-infos {
+  margin-top: 15px;
+  overflow: visible;
+}
+.vin-entete {
+  height: 260px;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-vinCarte {
+  padding-bottom: 80px;
+}
+
+.vin-bg {
+  position: absolute;
+  inset: 0;
+  background: url("../../img/vignoble.png") center/cover no-repeat;
+  filter: brightness(0.85);
+}
+
+.vin-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--blanc-clair);
+  color: var(--bordeau-profond);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.vin-image {
+  width: 140px;
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%) rotate(-16deg);
+  z-index: 2;
+  filter: drop-shadow(0 15px 25px var(--noir-profond));
+}
+
+.vin-image:hover {
+  transform: translateX(-50%) rotate(-8deg) scale(1.05);
+  transition: 0.3s;
+}
+.vin-wave {
+  position: absolute;
+  bottom: -1px;
+  width: 100%;
+  height: 120px;
+  background: var(--blanc-clair);
+  border-top-left-radius: 100% 60px;
+  border-top-right-radius: 100% 60px;
+  z-index: 1;
+}
+
+.vin-back {
+  position: absolute;
+  top: 45px;
+  left: 15px;
+  background: var(--blanc-clair);
+  padding: 8px 12px;
+  border-radius: 10px;
+  z-index: 3;
+  font-weight: bold;
+}
+
+.vin-contenu {
+  padding: 20px;
+}
+
+.vin-titre {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.vin-sous-titre {
+  font-size: 14px;
+  color: var(--gris-moyen);
+}
+
+.vin-details {
+  font-size: 13px;
+  color: var(--gris-moyen);
+  margin-bottom: 15px;
+}
+
+.vin-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vin-stock {
+  font-size: 12px;
+  color: var(--gris-moyen);
+}
+
+.vin-infos-parag {
+  font-size: 14px;
+  color: var(--gris-moyen);
+}
+.vin-prix {
+  background: var(--rouge-vin-profond);
+  color: var(--blanc-clair);
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: bold;
+}

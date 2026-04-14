@@ -8,6 +8,7 @@ import ProfilUsager from "../pages/usager/ProfilUsager.vue";
 import CreerCellier from "../pages/cellier/CreerCellier.vue";
 import ModifierCellier from "../pages/cellier/ModifierCellier.vue";
 import Dashboard from "../pages/cellier/Dashboard.vue";
+import DetailBouteille from "../pages/bouteille/DetailBouteille.vue";
 
 const routes = [
   {
@@ -50,6 +51,11 @@ const routes = [
   {
     path: "/dashboard",
     component: Dashboard,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/cellier-vin/:id",
+    component: DetailBouteille,
     meta: { requiresAuth: true },
   },
   // redirige les URL non reconnu (dans notre code) pour /connexion-usager

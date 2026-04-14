@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -24,10 +24,10 @@ class Usager extends Authenticatable
         'remember_token',
     ];
 
-    public function getAuthIdentifierName()
-    {
-        return 'courriel';
-    }
+    // public function getAuthIdentifierName()
+    // {
+    //     return 'courriel';
+    // }
 
     public function getAuthPassword()
     {
