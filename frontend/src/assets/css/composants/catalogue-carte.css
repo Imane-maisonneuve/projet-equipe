@@ -36,6 +36,8 @@
   flex-direction: column;
   flex: 1;
   margin-left: var(--espace-moyen);
+  padding-right: 10px;
+  padding-bottom: 10px;
 }
 
 /* nom */
@@ -51,7 +53,8 @@
 }
 
 .prix {
-  font-size: var(--fs-20);
+  /* font-size: var(--fs-20); */
+  font-size: var(--fs-16);
   font-weight: bold;
   margin: var(--espace-zero);
   text-align: center;
@@ -124,7 +127,8 @@
 
 .info-btn {
   position: absolute;
-  bottom: var(--espace-gros);
+  /* bottom: var(--espace-gros); */
+  bottom: var(--espace-gros-plus);
   right: var(--espace-moyen);
   background: var(--blanc-clair);
   color: var(--noir-profond);
@@ -217,22 +221,16 @@
 
 .catalogue-carte-btn {
   display: block;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: 0;
-  margin-top: var(--espace-moyen-petit);
+  max-width: 100%;
+  margin-top: auto;
   background: var(--rouge-vin-profond);
   color: var(--blanc-fonce);
   border: var(--espace-mini) solid var(--noir-profond);
   padding: var(--espace-moyen-petit);
   font-size: var(--fs-16);
   font-weight: 700;
-  cursor: pointer;
   border-radius: var(--espace-moyen-mini);
   text-decoration: none;
   text-align: center;
   box-sizing: border-box;
-  position: relative;
-  right: var(--espace-moyen);
-  top: -10px;
 }
