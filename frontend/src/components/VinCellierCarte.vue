@@ -1,22 +1,15 @@
 <template>
-<div class="nom-cellier">
-    <div class="vin-cellier-carte">
-        <img
-          :src="vin.image_url"
-          :alt="vin.nom"
-          class="cellier-img"
-        />
-        <div>
-            <h2 class="nom">{{ vin.nom }}</h2>
-            <p class="meta">Quantité: {{ quantite }}</p>
-        </div>
+  <div class="nom-cellier">
+    <div class="vin-cellier-carte" @click="voirDetail">
+      <img :src="vin.image_url" :alt="vin.nom" class="cellier-img" />
+      <div>
+        <h2 class="nom">{{ vin.nom }}</h2>
+        <p class="meta">Quantité: {{ quantite }}</p>
+      </div>
     </div>
 
     <div class="bouton-celleir">
-      <button
-        class="btn btn-cellier"
-        @click="$emit('ouvrir-modale', id)"
-      >
+      <button class="btn btn-cellier" @click="$emit('ouvrir-modale', id)">
         <Trash class="icons" />
       </button>
 
@@ -46,12 +39,12 @@ export default {
     };
   },
   methods: {
+    voirDetail() {
+      this.$router.push(`/cellier-vin/${this.id}`);
+    },
     async modifierQuantiteVin() {
       try {
-
-      } catch (erreur) {
-
-      }
+      } catch (erreur) {}
     },
   },
 };

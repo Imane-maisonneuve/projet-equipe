@@ -8,7 +8,7 @@
   <div class="vin-carte">
     <div class="vin-entete">
       <div class="vin-bg"></div>
-      <div class="vin-back">←</div>
+      <div class="vin-back" @click="retour">←</div>
       <img :src="bouteilleVin.image" class="vin-image" />
       <div class="vin-wave"></div>
     </div>
@@ -56,12 +56,17 @@ export default {
     bouteilleVin: Object,
     cellierNom: String,
   },
+
   methods: {
     formatPrice(prix) {
       return new Intl.NumberFormat("fr-CA", {
         style: "currency",
         currency: "CAD",
       }).format(prix);
+    },
+
+    retour() {
+      this.$router.push("/dashboard/");
     },
   },
 };

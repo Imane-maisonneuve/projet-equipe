@@ -1,13 +1,13 @@
 <template>
-  <div class="nom-cellier">
+  <div @click="voirDetailVinCellier" class="nom-cellier">
     <div class="cellier-item">
-      <div>
+      <div class="vin-cellier-carte">
         <img
           src="../../public/bouteille.png"
           alt="bouteille"
           class="cellier-img"
         />
-        <router-link :to="`/detail-cellier/${cellier.id}`" class="cellier-nom">{{ cellier.nom }}</router-link>
+        <div class="cellier-nom">{{ cellier.nom }}</div>
       </div>
     </div>
 
@@ -44,6 +44,9 @@ export default {
     };
   },
   methods: {
+    voirDetailVinCellier() {
+      this.$router.push(`/detail-cellier/${this.cellier.id}`);
+    },
     async modifierCellier() {
       try {
         this.$router.push(`/modifier-cellier/${this.cellier.id}`);
