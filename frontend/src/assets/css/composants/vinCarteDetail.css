@@ -146,3 +146,17 @@
   border-radius: 10px;
   font-weight: bold;
 }
+
+.btn-qte {
+  margin-right: var(--espace-moyen);
+  margin-left: -6px;
+  border: none;
+  cursor: pointer;
+  color: var(--rouge-vin-profond);
+}
+
+.btn-qte:disabled {
+  color: gray;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
