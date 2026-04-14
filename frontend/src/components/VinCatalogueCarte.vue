@@ -2,7 +2,7 @@
   <div class="catalogue-carte">
     <div class="media">
       <div class="image-conteneur">
-        <img :src="vin.image_url" class="image" :alt="vin.name" />
+        <img :src="vin.image_url" class="image" :alt="vin.nom" />
         <div class="prix">{{ vin.prix }}$</div>
       </div>
 

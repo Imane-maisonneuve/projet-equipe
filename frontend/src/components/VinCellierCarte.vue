@@ -1,25 +1,26 @@
 <template>
-  <div class="nom-cellier">
-    <div class="cellier-item">
-      <div>
+<div class="nom-cellier">
+    <div class="vin-cellier-carte">
         <img
-          src="../../public/bouteille.png"
-          alt="bouteille"
+          :src="vin.image_url"
+          :alt="vin.nom"
           class="cellier-img"
         />
-        <router-link :to="`/detail-cellier/${cellier.id}`" class="cellier-nom">{{ cellier.nom }}</router-link>
-      </div>
+        <div>
+            <h2 class="nom">{{ vin.nom }}</h2>
+            <p class="meta">Quantité: {{ quantite }}</p>
+        </div>
     </div>
 
     <div class="bouton-celleir">
       <button
         class="btn btn-cellier"
-        @click="$emit('ouvrir-modale', cellier.id)"
+        @click="$emit('ouvrir-modale', vin.id)"
       >
         <Trash class="icons" />
       </button>
 
-      <button class="btn btn-cellier" @click="modifierCellier">
+      <button class="btn btn-cellier">
         <PencilLine class="icons" />
       </button>
     </div>
@@ -28,27 +29,27 @@
 
 <script>
 import { Trash, PencilLine } from "lucide-vue-next";
+
 export default {
   components: {
     Trash,
     PencilLine,
   },
-  name: "Cellier",
   props: {
-    cellier: Object,
+    vin: Object,
+    quantite: Number,
   },
-
   data() {
     return {
       erreur: "",
     };
   },
   methods: {
-    async modifierCellier() {
+    async modifierQuantiteVin() {
       try {
-        this.$router.push(`/modifier-cellier/${this.cellier.id}`);
+
       } catch (erreur) {
-        this.erreur = "Erreur lors de la modification";
+
       }
     },
   },
