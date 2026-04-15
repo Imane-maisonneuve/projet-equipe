@@ -12,6 +12,7 @@ class VinController extends Controller
      * Récupère les paramètres de pagination depuis la requête HTTP
      * page : numéro de la page actuelle (par défaut 1)
      * per_page : nombre de résultats par page (par défaut 12)
+     * Recupere le input de la recherche
      * Récupère les filtres envoyés dans la requête, ou tableau vide si aucun
      * Initialise une requête Eloquent sur le modèle Vin
      * Filtre par un champ spécifié
@@ -23,6 +24,7 @@ class VinController extends Controller
     {
         $page = (int) $request->get('page', 1);
         $perPage = (int) $request->get('per_page', 12);
+        $recherche = $request->get('recherche', '');
 
         $filters = $request->get('filters', []);
 
@@ -101,7 +103,7 @@ class VinController extends Controller
      * Retourne la liste des bouteilles de vin formatées
      * @param SAQService $service
      * @param int $page
-     * @return array   
+     * @return array
      */
     public function getVinsSaq(SAQService $service, int $page = 1)
     {
@@ -120,7 +122,7 @@ class VinController extends Controller
 
     /**
      * Enregistre les données du SAQ en base de données.
-     * @param SAQService $service 
+     * @param SAQService $service
      * @return string
      */
 

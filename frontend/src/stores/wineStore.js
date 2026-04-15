@@ -9,7 +9,12 @@ export const useWineStore = defineStore("wine", {
   }),
 
   actions: {
-    async fetchAllWines(page = 1, perPage = 12, selectedFilters = {}) {
+    async fetchAllWines(
+      page = 1,
+      perPage = 12,
+      selectedFilters = {},
+      recherche = ""
+    ) {
       this.loading = true;
 
       try {
@@ -17,6 +22,10 @@ export const useWineStore = defineStore("wine", {
 
         params.append("page", page);
         params.append("per_page", perPage);
+
+        if (recherche) {
+          params.append("recherche", recherche);
+        }
 
         Object.keys(selectedFilters).forEach((key) => {
           selectedFilters[key].forEach((value) => {
