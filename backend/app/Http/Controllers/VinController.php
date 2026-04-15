@@ -23,8 +23,13 @@ class VinController extends Controller
     {
         $page = (int) $request->get('page', 1);
         $perPage = (int) $request->get('per_page', 12);
+        $recherche = $request->get('recherche', '');
 
         $query = Vin::query();
+
+        if (empty($recherche) == false) {
+            $query->where('nom', 'like', "%{$recherche}%");
+        }
 
         $wines = $query->paginate($perPage, ['*'], 'page', $page);
 
@@ -42,7 +47,7 @@ class VinController extends Controller
      * Retourne la liste des bouteilles de vin formatées
      * @param SAQService $service
      * @param int $page
-     * @return array   
+     * @return array
      */
     public function getVinsSaq(SAQService $service, int $page = 1)
     {
@@ -61,7 +66,7 @@ class VinController extends Controller
 
     /**
      * Enregistre les données du SAQ en base de données.
-     * @param SAQService $service 
+     * @param SAQService $service
      * @return string
      */
 
