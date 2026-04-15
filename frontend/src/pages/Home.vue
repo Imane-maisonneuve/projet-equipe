@@ -5,6 +5,17 @@
       <h2 class="banniere-titre">Catalogue des vins</h2>
     </div>
 
+    <div class="search-container">
+      <Search class="search-icon" />
+      <input
+        type="text"
+        v-model="termeDeRecherche"
+        placeholder="Rechercher un vin par nom..."
+        @input="rechercherVins"
+        class="search-input"
+      />
+    </div>
+
     <WineGrid v-if="!loading" :vins="vins" />
 
     <Pagination
@@ -25,12 +36,14 @@ import { useWineStore } from "../stores/wineStore";
 import WineGrid from "../components/WineGrid.vue";
 import Navbar from "../components/Navbar.vue";
 import Pagination from "../components/Pagination.vue";
+import { Search } from "lucide-vue-next";
 
 export default {
   components: {
     WineGrid,
     Navbar,
     Pagination,
+    Search,
   },
 
   data() {
@@ -50,6 +63,7 @@ export default {
         couleur: [],
       },
       wineStore: useWineStore(),
+      termeDeRecherche: '',
     };
   },
 
@@ -86,6 +100,20 @@ export default {
     millesimes() {
       return this.wineStore.filters.millesimes || [];
     },
+
+    total() {
+    return this.wineStore.total;
+    },
+
+    debut() {
+      if (this.total === 0) return 0;
+      return (this.page - 1) * this.perPage + 1;
+    },
+
+    fin() {
+      const fin = this.page * this.perPage;
+      return fin > this.total ? this.total : fin;
+    },
   },
 
   watch: {
@@ -106,6 +134,7 @@ export default {
   },
 
   methods: {
+
     formatAlcohol(value) {
       if (!value) return "-";
       const num = parseFloat(value);
@@ -118,7 +147,13 @@ export default {
 
     async fetchWines() {
       const filters = {};
-      await this.wineStore.fetchAllWines(this.page, this.perPage, filters);
+      await this.wineStore.fetchAllWines(this.page, this.perPage, filters, this.termeDeRecherche);
+    },
+
+    // pour la barre de recherche, va chercher tous les vins contenu dans cette recherche
+    async rechercherVins() {
+        const filters = {};
+        await this.wineStore.fetchAllWines(0, this.perPage, filters, this.termeDeRecherche);
     },
 
     goToPage(p) {
