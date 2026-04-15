@@ -58,6 +58,10 @@ class VinController extends Controller
             $query->where('nom', 'like', "%{$recherche}%");
         }
 
+        if (!empty($recherche)) {
+            $query->where('nom', 'like', "%{$recherche}%");
+        }
+
         if (!empty($filters['countries'])) {
             $query->whereIn('pays', $filters['countries']);
         }
