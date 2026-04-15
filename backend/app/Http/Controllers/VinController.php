@@ -26,10 +26,37 @@ class VinController extends Controller
         $page = (int) $request->get('page', 1);
         $perPage = (int) $request->get('per_page', 12);
         $recherche = $request->get('recherche', '');
+        $tri = $request->get('tri');
+        
+        switch($tri){
+            case 1:
+            $query = Vin::query()->orderBy('nom', 'asc');
+            break; 
+            case 2:
+            $query = Vin::query()->orderBy('nom', 'desc');
+            break;
+            case 3:
+            $query = Vin::query()->orderBy('prix', 'asc');
+            break;
+            case 4:
+            $query = Vin::query()->orderBy('prix', 'desc');
+            break;
+            case 5:
+            $query = Vin::query()->orderBy('annee', 'asc');
+            break;
+            case 6:
+            $query = Vin::query()->orderBy('annee', 'desc');
+            break;
+            default:
+            $query = Vin::query();
+            break;
+         }
 
         $filters = $request->get('filters', []);
-
-        $query = Vin::query();
+        
+        if (!empty($recherche)) {
+            $query->where('nom', 'like', "%{$recherche}%");
+        }
 
         if (!empty($filters['countries'])) {
             $query->whereIn('pays', $filters['countries']);
