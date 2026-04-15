@@ -174,20 +174,6 @@ export default {
     millesimes() {
       return this.wineStore.filters.millesimes || [];
     },
-
-    total() {
-      return this.wineStore.total;
-    },
-
-    debut() {
-      if (this.total === 0) return 0;
-      return (this.page - 1) * this.perPage + 1;
-    },
-
-    fin() {
-      const fin = this.page * this.perPage;
-      return fin > this.total ? this.total : fin;
-    },
   },
 
   watch: {
