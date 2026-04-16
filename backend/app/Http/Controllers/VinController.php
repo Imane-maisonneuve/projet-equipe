@@ -248,7 +248,7 @@ class VinController extends Controller
 
         // Créer une nouvelle bouteille de vin personnalisée
         $vinPersonnalise = Vin::create([
-            'sku' => 'PERSO-' . now()->format('YmdHis'),
+            'sku' => 'PERSO-' . now()->valueOf(),
             'nom' => $request->input('nom'),
             'prix' => $request->input('prix'),
             'pays' => $request->input('pays'),
@@ -304,5 +304,30 @@ class VinController extends Controller
         return response()->json([
             'listePays' => $listePays
         ]);
+    }
+
+    public function supprimerVinPersonnalise($bouteilleSKU)
+    {
+        // Rechercher la bouteille de vin personnalisée par son SKU
+        $bouteilleVin = Vin::where('sku', $bouteilleSKU)->first();
+
+        // Vérifier si la bouteille existe et si elle est personnalisée (SKU commençant par "PERSO-")
+        if (!$bouteilleVin) {
+            return response()->json(['message' => 'Bouteille non trouvée'], 404);
+        }
+        if (!str_starts_with($bouteilleVin->sku, 'PERSO-')) {
+            return response()->json(['message' => 'Bouteille alo de la SAQ ne doit pas être supprimée'], 400);
+        }
+
+        // Supprimer la bouteille de vin personnalisée
+        $bouteilleVin->delete();
+
+        // Supprimer les entrées correspondantes dans la table cellier_vins
+        $cellierVins = CellierVin::where('vin_id', $bouteilleVin->id);
+        foreach ($cellierVins as $cellierVin) {
+            $cellierVin->delete();
+        }
+
+        return response()->json(['message' => 'La bouteille personnalisée est supprimée']);
     }
 }

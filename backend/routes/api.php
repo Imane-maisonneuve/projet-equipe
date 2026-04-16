@@ -70,4 +70,7 @@ Route::middleware(['web', 'auth'])->group(function () {
 
     // Route pour obtenir la liste des pays disponibles dans le catalogue de vins
     Route::get('/pays', [VinController::class, 'recupererPays']);
+
+    // Route pour supprimer une bouteille personnalisée de la table des vins
+    Route::delete('/supprimer-bouteille/{bouteilleSKU}', [VinController::class, 'supprimerVinPersonnalise']);
 });

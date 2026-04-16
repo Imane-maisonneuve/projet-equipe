@@ -66,7 +66,8 @@ class CellierVinController extends Controller
                 'cellier_id' => 'required|exists:celliers,id',
                 'vin_id' =>     'required|exists:vins,id',
                 'quantite' => 'required|integer|min:1',
-            ], $this->messages            
+            ],
+            $this->messages
         );
 
         // Vérification de l'existence du vin dans le cellier
@@ -136,6 +137,7 @@ class CellierVinController extends Controller
             'cepage' => $cellierVin->vin->cepage,
             'degre_alcool' => $cellierVin->vin->degre_alcool,
             'taux_sucre' => $cellierVin->vin->taux_sucre,
+            'sku' => $cellierVin->vin->sku,
         ]);
     }
 
@@ -144,14 +146,14 @@ class CellierVinController extends Controller
      */
     public function edit($vin_id)
     {
-       //
+        //
     }
 
     /**
      *
      */
     public function update(Request $request, $vin_id)
-    {        
+    {
         // Trouver cellier_vin
         $cellierVin = CellierVin::findOrFail($vin_id);
 
@@ -173,8 +175,8 @@ class CellierVinController extends Controller
         $cellierVin->quantite = $validated['quantite'];
         $cellierVin->save();
 
-         // Réponse
-         return response()->json([
+        // Réponse
+        return response()->json([
             'message' => 'Quantité est mis à jour avec succès',
             'data' => $cellierVin
         ]);

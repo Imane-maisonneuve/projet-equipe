@@ -35,6 +35,13 @@
     <p class="vin-infos-parag">Année : {{ bouteilleVin.annee }}</p>
     <p class="vin-infos-parag">Couleur : {{ bouteilleVin.couleur }}</p>
   </div>
+
+  <!-- Affiche les boutons de modification et de suppression uniquement pour les
+  bouteilles personnalisées -->
+  <div class="vinCarte-actions" v-if="isBouteillePersonalisee()">
+    <button class="signup-btn" @click="SupprimerBouteille">Supprimer</button>
+    <button class="signup-btn" @click="ModifierBouteille">Modifier</button>
+  </div>
 </template>
 
 <script>
@@ -50,6 +57,23 @@ export default {
         style: "currency",
         currency: "CAD",
       }).format(prix);
+    },
+
+    // Vérifie si la bouteille est personnalisée en se basant sur le SKU
+    isBouteillePersonalisee() {
+      return (
+        this.bouteilleVin.sku && this.bouteilleVin.sku.startsWith("PERSO-")
+      );
+    },
+
+    // Émet un événement pour la suppression et la modification
+    SupprimerBouteille() {
+      this.$emit("supprimer-bouteille", this.bouteilleVin.id);
+    },
+
+    // Émet un événement pour la suppression et la modification
+    ModifierBouteille() {
+      this.$emit("modifier-bouteille", this.bouteilleVin);
     },
 
     retour() {
