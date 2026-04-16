@@ -1,7 +1,10 @@
 <template>
   <div v-if="show" class="modal-overlay" @click.self="$emit('close')">
     <div class="modal-tri">
-      <h3>Trier par</h3>
+      <div class="modal-tete">
+        <h3>Trier par</h3>
+        <button class="modal-fermer" @click="$emit('close')">❌</button>
+      </div>
 
       <label>
         <input type="radio" value="1" v-model="localTri" />

@@ -102,3 +102,13 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+button.modal-fermer {
+  background: white;
+}
+.modal-tete {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+}
