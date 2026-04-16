@@ -112,8 +112,30 @@
           <CirclePlus />
         </button>
       </div>
+
+      <div class="bouton-cellier">
+      <button class="btn btn-cellier" @click="ouvrirModale(bouteille.id)">
+        <Trash class="icons" />
+      </button>
+
+      <button class="btn btn-cellier" @click="voirDetail(bouteille.id)">
+        <Eye class="icons" />
+      </button>
+    </div>
+
     </div>
   </div>
+
+  <ModalConfirmation
+    :show="afficherModale"
+    message="Voulez-vous supprimer ce vin de ce cellier ?"
+    confirmText="Supprimer"
+    cancelText="Annuler"
+    @confirm="confirmerSuppression"
+    @cancel="afficherModale = false"
+  />
+  <div class="espacement"></div>
+
 </template>
 
 <script>
@@ -123,6 +145,7 @@ import FilterSection from "../../components/FilterSelection.vue";
 import ColorFilter from "../../components/ColorFilter.vue";
 import axios from "axios";
 import api, { fetchCsrfToken } from "../../api";
+import ModalConfirmation from "../../components/ModalConfirmation.vue";
 
 export default {
   components: {
@@ -136,6 +159,7 @@ export default {
     Eye,
     CirclePlus,
     CircleMinus,
+    ModalConfirmation,
   },
 
   data() {
@@ -178,6 +202,8 @@ export default {
         millesimes: [],
         couleur: [],
       },
+      afficherModale: false,
+      idASupprimer: null,
     };
   },
 
@@ -258,6 +284,39 @@ export default {
       } catch (erreur) {
         console.error(erreur);
       }
+    },
+
+     //Ouvrire la modale de suppression de bouteille du cellier
+     ouvrirModale(id) {
+      this.idASupprimer = id;
+      this.afficherModale = true;
+    },
+
+    // Une fois qui l'utilisateur confirme la suppression d'un bouteille du cellier
+    async confirmerSuppression() {
+      try {
+        // supprimer grace a cette route dans le backend, qui supprime dans la DB
+        await api.delete(`/cellier-vins/${this.idASupprimer}`);
+
+        // Supprimer localement
+        this.bouteilles = this.bouteilles.filter((item) => item.id !== this.idASupprimer);
+
+        // enlever l'affichage du Modale de suppression
+        this.afficherModale = false;
+        this.idASupprimer = null;
+
+        // Doit frait un "refresh" pour voir la bouteille supprimer
+        this.fetchBouteilles();
+
+      } catch (err) {
+        this.erreur =
+          "Erreur lors de la suppression d'une bouteille dans ce cellier";
+      }
+    },
+
+    // Push vers la page du detail de la bouteille
+    voirDetail(id) {
+      this.$router.push(`/cellier-vin/${id}`);
     },
   },
 
