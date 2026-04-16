@@ -4,7 +4,7 @@
       <img src="../../assets/img/image.png" />
       <div class="bloc-img-secondaire">Vino</div>
     </div>
-    <form @submit.prevent="creerUsager" class="bloc-form">
+    <form @submit.prevent="gererSoumission" class="bloc-form">
       <h2>Créer un compte</h2>
       <p class="already-txt">Déjà membre ?
         <router-link to="/connexion-usager">
@@ -50,6 +50,8 @@
 </template>
 <script>
 import axios from "axios";
+import api, { fetchCsrfToken } from "../../api";
+import { useAuthStore } from "../../stores/auth";
 
 export default {
   data() {
@@ -61,6 +63,11 @@ export default {
     };
   },
   methods: {
+    async gererSoumission() {
+      await this.creerUsager();
+      await this.connexion();
+    },
+    // creer l'usager quand il pese sur "creer un compte"
     async creerUsager() {
       console.log("Méthode creerUsager appelée !");
       try {
@@ -70,12 +77,41 @@ export default {
           mot_de_passe: this.mot_de_passe,
         });
 
-        this.$router.push("/connexion-usager");
-
         console.log(response.data);
       } catch (erreur) {
         if (erreur.response && erreur.response.status === 422) {
           this.erreurs = erreur.response.data.erreurs;
+        }
+      }
+    },
+    //Connecte l'usager quand il pese sur "creer un compte"
+    async connexion() {
+
+      try {
+        // Récupération du token CSRF
+        await fetchCsrfToken();
+
+        // Appel à l'API
+        const response = await api.post("/", {
+          courriel: this.courriel,
+          mot_de_passe: this.mot_de_passe,
+        });
+
+        // Mise à jour du store utilisateur
+        const authStore = useAuthStore();
+        await authStore.fetchUsager();
+
+        // Redirection vers le catalogue
+        this.$router.push("/catalogue");
+
+        // Catch les erreurs
+      } catch (err) {
+        if (err.response) {
+          this.erreur = "Erreur de connexion";
+        } else if (err.request) {
+          this.erreur = "Impossible de joindre le serveur";
+        } else {
+          this.erreur = "Une erreur est survenue";
         }
       }
     },
