@@ -27,33 +27,33 @@ class VinController extends Controller
         $perPage = (int) $request->get('per_page', 12);
         $recherche = $request->get('recherche', '');
         $tri = $request->get('tri');
-        
-        switch($tri){
+
+        switch ($tri) {
             case 1:
-            $query = Vin::query()->orderBy('nom', 'asc');
-            break; 
+                $query = Vin::query()->orderBy('nom', 'asc');
+                break;
             case 2:
-            $query = Vin::query()->orderBy('nom', 'desc');
-            break;
+                $query = Vin::query()->orderBy('nom', 'desc');
+                break;
             case 3:
-            $query = Vin::query()->orderBy('prix', 'asc');
-            break;
+                $query = Vin::query()->orderBy('prix', 'asc');
+                break;
             case 4:
-            $query = Vin::query()->orderBy('prix', 'desc');
-            break;
+                $query = Vin::query()->orderBy('prix', 'desc');
+                break;
             case 5:
-            $query = Vin::query()->orderBy('annee', 'asc');
-            break;
+                $query = Vin::query()->orderBy('annee', 'asc');
+                break;
             case 6:
-            $query = Vin::query()->orderBy('annee', 'desc');
-            break;
+                $query = Vin::query()->orderBy('annee', 'desc');
+                break;
             default:
-            $query = Vin::query();
-            break;
-         }
+                $query = Vin::query();
+                break;
+        }
 
         $filters = $request->get('filters', []);
-        
+
         if (!empty($recherche)) {
             $query->where('nom', 'like', "%{$recherche}%");
         }
@@ -190,30 +190,57 @@ class VinController extends Controller
         }
         return "Importation est terminée";
     }
+
+    // Crée une bouteille de vin non listée dans le catalogue et l'ajouter au cellier
     public function creerBouteillePersonnalisee(Request $request)
     {
+        // Valider les données de la requête
         $request->validate([
             'nom' => 'required|string|max:100',
-            'prix' => 'required|numeric',
+            'prix' => 'required|numeric|min:1',
             'pays' => 'nullable|string',
-            'region' => 'nullable|string',
-            'cepage' => 'nullable|string',
-            'degre_alcool' => 'nullable|string',
-            'taux_sucre' => 'nullable|string',
-            'format' => 'nullable|string|max:6',
-            'annee' => 'nullable|string|max:4',
+            'region' => 'nullable|string|not_regex:/[0-9]/',
+            'cepage' => 'nullable|string|not_regex:/[0-9]/',
+            'degre_alcool' => 'nullable|numeric',
+            'taux_sucre' => 'nullable|numeric',
+            'format' => 'nullable|integer|min:50|max:10000',
+            'annee' => 'nullable|digits:4',
             'couleur' => 'nullable|string',
             'quantite' => 'required|integer|min:1',
         ], [
             'nom.required' => 'Le nom de la bouteille est obligatoire.',
-            'nom.max' => 'Le nom ne peut pas dépasser 100 caractères.',
+            'nom.max' => 'Le nom de la bouteille ne peut pas dépasser 100 caractères.',
+
             'prix.required' => 'Le prix de la bouteille est obligatoire.',
-            'format.max' => 'Le format ne peut pas dépasser 6 caractères.',
-            'annee.max' => 'Année doit avoir 4 caractères.',
+            'prix.numeric' => 'Le prix doit être un nombre.',
+            'prix.min' => 'Le prix doit être supérieur ou égal à 1.',
+
+            'pays.string' => 'Le pays doit être une chaîne de caractères.',
+
+            'region.string' => 'La région doit être une chaîne de caractères.',
+            'region.not_regex' => 'La région ne doit pas contenir de chiffres.',
+
+            'cepage.string' => 'Le cépage doit être une chaîne de caractères.',
+            'cepage.not_regex' => 'Le cépage ne doit pas contenir de chiffres.',
+
+            'degre_alcool.numeric' => 'Le degré d alcool doit être un nombre.',
+
+            'taux_sucre.numeric' => 'Le taux de sucre doit être un nombre.',
+
+            'format.integer' => 'Le format doit être un nombre.',
+            'format.min' => 'Le format doit être au moins de 50 ml.',
+            'format.max' => 'Le format ne peut pas dépasser 10000 ml.',
+
+            'annee.digits' => 'L année doit contenir exactement 4 chiffres.',
+
+            'couleur.string' => 'La couleur doit être une chaîne de caractères.',
+
             'quantite.required' => 'La quantité est obligatoire.',
+            'quantite.integer' => 'La quantité doit être un nombre entier.',
             'quantite.min' => 'La quantité doit être au moins 1.',
         ]);
 
+        // Créer une nouvelle bouteille de vin personnalisée
         $vinPersonnalise = Vin::create([
             'sku' => 'PERSO-' . now()->format('YmdHis'),
             'nom' => $request->input('nom'),
@@ -229,12 +256,14 @@ class VinController extends Controller
             'couleur' => $request->input('couleur')
         ]);
 
+        // Ajouter la bouteille personnalisée au cellier avec la quantité spécifiée par l'usager
         if ($vinPersonnalise) {
             $cellierVin = CellierVin::create([
                 'cellier_id' => $request->cellier_id,
                 'vin_id' => $vinPersonnalise->id,
                 'quantite' => $request->quantite,
             ]);
+            // Retourner une réponse JSON avec les détails de la bouteille personnalisée et du cellier
             if ($cellierVin) {
                 return response()->json([
                     'message' => 'Bouteille de vin personnalisée ajoutée avec succès au cellier',
@@ -242,14 +271,32 @@ class VinController extends Controller
                     'cellier_vin' => $cellierVin
                 ], 201);
             } else {
+                // Si echec de  l'ajout au cellier, supprimer la bouteille personnalisée créée pour éviter les doublons
+                $vinPersonnalise->delete();
                 return response()->json([
-                    'message' => 'Erreur ajout de la bouteille au cellier'
+                    'message' => 'Ajout de la bouteille personnalisée au cellier a échoué veuillez réessayer'
                 ], 500);
             }
         } else {
+            // Si échec de la création de la bouteille personnalisée, retourner une réponse d'erreur
             return response()->json([
                 'message' => 'Erreur lors de la création de la bouteille de vin'
             ], 500);
         }
+    }
+    // Récupérer la liste des pays disponibles dans la base de données pour les vins
+    public function recupererPays()
+    {
+        $listePays = Vin::query()
+            ->select('pays')
+            ->whereNotNull('pays')
+            ->where('pays', '!=', '')
+            ->distinct()
+            ->orderBy('pays')
+            ->pluck('pays');
+        // Retourner la liste des pays au format JSON
+        return response()->json([
+            'listePays' => $listePays
+        ]);
     }
 }

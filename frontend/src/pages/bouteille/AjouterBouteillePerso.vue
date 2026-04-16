@@ -27,12 +27,12 @@
       </div>
 
       <label>Pays</label>
-      <input
-        class="form-input"
-        type="text"
-        v-model="pays"
-        placeholder="Ex: France"
-      />
+      <select v-model="pays">
+        <option disabled value="">Choisir un pays</option>
+        <option v-for="pays in listePays" :key="pays" :value="pays">
+          {{ pays }}
+        </option>
+      </select>
       <div v-if="erreurs.pays" class="erreur">
         {{ erreurs.pays[0] }}
       </div>
@@ -71,7 +71,7 @@
         {{ erreurs.taux_sucre[0] }}
       </div>
 
-      <label>Format (ml)</label>
+      <label>Format (en ml)</label>
       <input
         class="form-input"
         type="text"
@@ -149,6 +149,7 @@ export default {
       annee: "",
       couleur: "",
       quantite: 0,
+      listePays: [],
       erreurs: {},
       message: "",
       messageSucces: "",
@@ -176,12 +177,12 @@ export default {
           taux_sucre: this.taux_sucre,
           format: this.format,
           annee: this.annee,
-          image_url: this.image_url,
           couleur: this.couleur,
           quantite: this.quantite,
           cellier_id: this.cellier_id,
         });
 
+        // réinitialiser les champs du formulaire après l'ajout réussi
         this.messageSucces = "La bouteille a bien été ajoutée.";
 
         this.nom = "";
@@ -193,29 +194,39 @@ export default {
         this.taux_sucre = "";
         this.format = "";
         this.annee = "";
-        this.image_url = "";
         this.couleur = "";
         this.quantite = 0;
 
         // afficher un message de succès et rediriger vers le catalogue après 2 secondes
         this.messageSucces =
           "Votre bouteille a été ajoutée au cellier avec succès !";
+
         setTimeout(() => {
           this.messageSucces = "";
           // rediriger vers la page de détail du cellier
           this.$router.push(`/detail-cellier/${this.cellier_id}`);
         }, 3000);
+
         // gestion des erreurs de validation et autres erreurs
       } catch (erreur) {
-        if (erreur.response && error.response.status === 422) {
-          this.erreur = erreur.response.data.errors;
-        } else {
-          if (erreur.response.data.message) {
-            this.message = erreur.response.data.message;
-          }
+        this.erreurs = erreur.response.data.errors;
+        if (erreur.response.data.message) {
+          this.message = erreur.response.data.message;
         }
       }
     },
+    // méthode pour récupérer la liste des pays depuis le backend
+    async recupererPays() {
+      try {
+        const response = await api.get("/pays");
+        this.listePays = response.data.listePays || [];
+      } catch (erreur) {
+        this.message = erreur.response.data.message;
+      }
+    },
+  },
+  mounted() {
+    this.recupererPays();
   },
 };
 </script>

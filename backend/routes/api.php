@@ -67,4 +67,7 @@ Route::middleware(['web', 'auth'])->group(function () {
 
     //Filtrer les bouteilles du catalogue
     Route::get('/vins', [VinController::class, 'index']);
+
+    // Route pour obtenir la liste des pays disponibles dans le catalogue de vins
+    Route::get('/pays', [VinController::class, 'recupererPays']);
 });
