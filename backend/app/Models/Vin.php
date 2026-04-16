@@ -27,4 +27,9 @@ class Vin extends Model
     {
         return $this->hasMany(CellierVin::class);
     }
+
+    public function listeAchats()
+    {
+        return $this->hasMany(listeAchat::class);
+    }
 }

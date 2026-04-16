@@ -44,4 +44,10 @@ class Usager extends Authenticatable
     {
         return $this->hasMany(Cellier::class, 'usager_id');
     }
+
+    // ajouter la relation avec ListeAchat
+    public function listeAchats()
+    {
+        return $this->hasMany(listeAchat::class, 'usager_id');
+    }
 }
