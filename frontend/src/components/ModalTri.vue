@@ -31,16 +31,6 @@
         {{ prixDecroissant }}
       </label>
 
-      <label>
-        <input type="radio" value="5" v-model="localTri" />
-        {{ anneeCroissante }}
-      </label>
-
-      <label>
-        <input type="radio" value="6" v-model="localTri" />
-        {{ anneeDecroissante }}
-      </label>
-
       <button @click="appliquerTri">Appliquer</button>
     </div>
   </div>
@@ -71,14 +61,6 @@ export default {
     prixDecroissant: {
       type: String,
       default: "Prix décroissant",
-    },
-    anneeCroissante: {
-      type: String,
-      default: "Millésime croissante",
-    },
-    anneeDecroissante: {
-      type: String,
-      default: "Millésime décroissante",
     },
   },
   data() {

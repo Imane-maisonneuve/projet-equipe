@@ -42,12 +42,6 @@ class VinController extends Controller
             case 4:
                 $query = Vin::query()->orderBy('prix', 'desc');
                 break;
-            case 5:
-                $query = Vin::query()->orderBy('annee', 'asc');
-                break;
-            case 6:
-                $query = Vin::query()->orderBy('annee', 'desc');
-                break;
             default:
                 $query = Vin::query();
                 break;
@@ -113,7 +107,7 @@ class VinController extends Controller
 
         $wines = $query->paginate($perPage, ['*'], 'page', $page);
 
-        /**Faire les filtres  sur les bouteilles de la SAQ et 
+        /**Faire les filtres  sur les bouteilles de la SAQ et
          * exclure les bouteilles personnalisées
          */
         $toutLesFilters = [
