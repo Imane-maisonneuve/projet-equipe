@@ -7,11 +7,6 @@ body {
   margin-inline: 120px;
 }
 
-.h2 {
-  display: flex;
-  justify-content: center;
-}
-
 :root {
   /* Couleurs*/
   --gris-clair: #efefef;
