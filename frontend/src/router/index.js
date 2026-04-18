@@ -13,6 +13,7 @@ import DetailCellier from "../pages/cellierVin/DetailCellier.vue";
 import AjouterBouteille from "../pages/bouteille/AjouterBouteille.vue";
 import AjouterBouteillePerso from "../pages/bouteille/AjouterBouteillePerso.vue";
 import RechercheBouteilleCellier from "../pages/cellier/RechercheBouteilleCellier.vue";
+import ListeAchats from "../pages/achats/ListeAchats.vue";
 import ModifierBouteillePerso from "../pages/bouteille/ModifierBouteillePerso.vue";
 const routes = [
   {
