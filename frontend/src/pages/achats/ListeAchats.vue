@@ -53,6 +53,7 @@ export default {
       try {
         await fetchCsrfToken();
         const response = await api.get("/liste-achats");
+        console.log("Structure reçue:", response.data.liste_achats[0]);
         this.vins = response.data.liste_achats;
       } catch (error) {
         console.error(

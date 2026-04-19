@@ -11,7 +11,7 @@
         {{ bouteilleVin.nom || "Nom inconnu" }}
       </h2>
       <div class="vin-footer">
-        <div class="vin-stock">
+        <div v-if="bouteilleVin.quantite" class="vin-stock">
           {{ bouteilleVin.quantite }} en stock • {{ cellierNom }}
         </div>
 

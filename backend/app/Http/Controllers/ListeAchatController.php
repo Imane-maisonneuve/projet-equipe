@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ListeAchat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListeAchatController extends Controller
 {
@@ -79,9 +80,36 @@ class ListeAchatController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ListeAchat $listeAchat)
+    public function show($id)
     {
-        //
+        $listeAchat = ListeAchat::with(['vin', 'usager'])
+        ->where('liste_achats.id', $id)
+        ->whereHas('usager', function ($query) {
+            $query->where('id', Auth::id());
+        })
+        ->first();
+
+        if (!$listeAchat) {
+            return response()->json([
+                'error' => 'Bouteille non trouvée ou accès refusé'
+            ], 404);
+        }
+
+        return response()->json([
+            'id' => $listeAchat->id,
+            'nom' => $listeAchat->vin->nom,
+            'prix' => $listeAchat->vin->prix,
+            'pays' => $listeAchat->vin->pays,
+            'region' => $listeAchat->vin->region,
+            'format' => $listeAchat->vin->format,
+            'annee' => $listeAchat->vin->annee,
+            'image' => $listeAchat->vin->image_url,
+            'couleur' => $listeAchat->vin->couleur,
+            'cepage' => $listeAchat->vin->cepage,
+            'degre_alcool' => $listeAchat->vin->degre_alcool,
+            'taux_sucre' => $listeAchat->vin->taux_sucre,
+            'sku' => $listeAchat->vin->sku,
+        ]);
     }
 
     /**

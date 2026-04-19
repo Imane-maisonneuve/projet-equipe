@@ -45,22 +45,10 @@ export default {
   },
   methods: {
     voirDetail() {
-      this.$router.push(`/cellier-vin/${this.id}`);
+      this.$router.push(`/liste-achats-vin/${this.id}`);
     },
-    // Envoie de requete pour modifier le nombre des bouteilles
-    async modifierQuantiteVin(nouvelleQuantite) {
-      if (nouvelleQuantite < 1) return;
 
-      try {
-        await fetchCsrfToken();
-        await api.put(`/modifier-quantite/${this.id}`, {
-          quantite: nouvelleQuantite,
-        });
-      } catch (erreur) {
-        console.error(erreur);
-      }
-    },
-    async ajouterAuCellier() {
+    ajouterAuCellier() {
       this.$router.push(`/bouteille/AjouterBouteille/${this.vin.id}`);
     },
   },

@@ -15,6 +15,8 @@ import AjouterBouteillePerso from "../pages/bouteille/AjouterBouteillePerso.vue"
 import RechercheBouteilleCellier from "../pages/cellier/RechercheBouteilleCellier.vue";
 import ListeAchats from "../pages/achats/ListeAchats.vue";
 import ModifierBouteillePerso from "../pages/bouteille/ModifierBouteillePerso.vue";
+import ListeAchatBouteille from "../pages/achats/ListeAchatBouteille.vue";
+
 const routes = [
   {
     path: "/",
@@ -91,8 +93,19 @@ const routes = [
   },
 
   {
+    path: "/bouteille/ModifierBouteillePerso/:sku",
+    component: ModifierBouteillePerso,
+    meta: { requiresAuth: true },
+  },
+
+  {
     path: "/liste-achats",
     component: ListeAchats,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/liste-achats-vin/:id",
+    component: ListeAchatBouteille,
     meta: { requiresAuth: true },
   },
 
