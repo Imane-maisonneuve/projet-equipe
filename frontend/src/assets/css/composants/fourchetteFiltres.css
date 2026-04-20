@@ -1,0 +1,36 @@
+.price-range {
+  padding: 15px 10px;
+}
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.filter-title {
+  margin-bottom: 20px;
+}
+
+.values {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.1rem;
+  color: #ddd;
+  padding: 0 5px;
+}
+
+.app-filtre {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(
+    135deg,
+    var(--rouge-framboise-fonce),
+    var(--rouge-vin-profond)
+  );
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}

@@ -1,0 +1,58 @@
+.select-box {
+  margin-top: 12px;
+}
+
+/* SELECT */
+.select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--bleu-vif);
+  border-radius: 10px;
+  background: var(--blanc-fonce);
+  font-size: 14px;
+  color: #1f2937;
+  outline: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.select:focus {
+  border-color: var(--bordeau-profond);
+  box-shadow: 0 0 0 3px var(--bleu-vif);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 10px;
+  border-radius: 999px;
+
+  background: var(--rouge-vin-profond);
+  color: var(--blanc-fonce);
+
+  font-size: 13px;
+  font-weight: 500;
+
+  border: 1px solid var(--vert-fonce);
+
+  transition: all 0.2s ease;
+}
+
+.tag button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--blanc-fonce);
+  transition: color 0.2s ease;
+}

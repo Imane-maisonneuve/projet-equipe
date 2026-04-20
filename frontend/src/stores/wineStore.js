@@ -14,7 +14,7 @@ export const useWineStore = defineStore("wine", {
       perPage = 12,
       selectedFilters = {},
       recherche = "",
-      choix = 0
+      choix = 0,
     ) {
       this.loading = true;
 
@@ -30,13 +30,24 @@ export const useWineStore = defineStore("wine", {
         }
 
         Object.keys(selectedFilters).forEach((key) => {
-          selectedFilters[key].forEach((value) => {
-            params.append(`filters[${key}][]`, value);
-          });
+          const value = selectedFilters[key];
+
+          if (Array.isArray(value)) {
+            value.forEach((v) => {
+              params.append(`filters[${key}][]`, v);
+            });
+          } else if (typeof value === "object" && value !== null) {
+            if (value.min !== null) {
+              params.append(`filters[${key}][min]`, value.min);
+            }
+            if (value.max !== null) {
+              params.append(`filters[${key}][max]`, value.max);
+            }
+          }
         });
 
         const res = await fetch(
-          `http://localhost:8000/vins?${params.toString()}`
+          `http://localhost:8000/vins?${params.toString()}`,
         );
 
         const data = await res.json();

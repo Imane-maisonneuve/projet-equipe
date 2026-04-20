@@ -51,7 +51,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 
-/* fix variable card heights on desktop */
+  /* fix variable card heights on desktop */
   line-height: 1.2;
   min-height: 2.4em;
   max-height: 2.4em;
@@ -266,6 +266,17 @@
   justify-content: space-between;
 }
 
+.reset-filters {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: var(--blanc-clair);
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
 .catalogue-carte-actions {
   display: flex;
   align-items: stretch;

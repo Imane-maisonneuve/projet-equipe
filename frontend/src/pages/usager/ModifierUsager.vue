@@ -19,6 +19,7 @@
           >Modifier le courriel entraîne une redirection vers la connexion</span
         >
         <input
+          class="bloc-input-email"
           type="email"
           v-model="courriel"
           placeholder="exemple@email.com"

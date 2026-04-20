@@ -167,3 +167,7 @@ body {
   color: var(--rouge-framboise-fonce);
   font-size: var(--fs-12);
 }
+
+.bloc-input-email {
+  margin-top: var(--espace-petit);
+}

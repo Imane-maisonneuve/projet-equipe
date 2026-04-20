@@ -7,6 +7,7 @@ use App\Models\Vin;
 use App\Services\SAQService;
 use App\Models\CellierVin;
 
+
 class VinController extends Controller
 {
     /**
@@ -83,17 +84,38 @@ class VinController extends Controller
         }
 
         if (!empty($filters['prix'])) {
-            $min = min($filters['prix']);
-            $max = max($filters['prix']);
-            $query->whereBetween('prix', [(float)$min, (float)$max]);
+            if (isset($filters['prix']['min']) && $filters['prix']['min'] !== null) {
+                $query->where('prix', '>=', (float)$filters['prix']['min']);
+            }
+
+            if (
+                isset($filters['prix']['min'], $filters['prix']['max']) &&
+                $filters['prix']['min'] > 0 &&
+                $filters['prix']['max'] > 0
+            ) {
+                $query->where('prix', '>=', $filters['prix']['min'])
+                    ->where('prix', '<=', $filters['prix']['max']);
+            }
         }
 
-        if (!empty($filters['formats'])) {
-            $query->whereIn('format', $filters['formats']);
+        if (!empty($filters['format'])) {
+
+            if (isset($filters['format']['min'])) {
+                $query->where('format', '>=', (int)$filters['format']['min']);
+            }
+
+            if (isset($filters['format']['max'])) {
+                $query->where('format', '<=', (int)$filters['format']['max']);
+            }
         }
 
         if (!empty($filters['degres'])) {
-            $query->whereIn('degre_alcool', $filters['degres']);
+            if (isset($filters['degres']['min'])) {
+                $query->where('degre_alcool', '>=', $filters['degres']['min']);
+            }
+            if (isset($filters['degres']['max'])) {
+                $query->where('degre_alcool', '<=', $filters['degres']['max']);
+            }
         }
 
         if (!empty($filters['millesimes'])) {
@@ -107,6 +129,11 @@ class VinController extends Controller
 
         $wines = $query->paginate($perPage, ['*'], 'page', $page);
 
+        $millesimeQuery = Vin::where('sku', 'not like', 'PERSO-%')
+            ->whereNotNull('annee')
+            ->whereRaw('annee REGEXP "^[0-9]{4}$"');
+
+        /**Faire les filtres  sur les bouteilles de la SAQ et 
         /**Faire les filtres  sur les bouteilles de la SAQ et
          * exclure les bouteilles personnalisées
          */
@@ -114,10 +141,42 @@ class VinController extends Controller
             'countries' => Vin::where('sku', 'not like', 'PERSO-%')->distinct()->pluck('pays')->filter()->values(),
             'regions' => Vin::where('sku', 'not like', 'PERSO-%')->distinct()->pluck('region')->filter()->values(),
             'cepages' => Vin::where('sku', 'not like', 'PERSO-%')->distinct()->pluck('cepage')->filter()->values(),
-            'prix' => Vin::where('sku', 'not like', 'PERSO-%')->distinct()->pluck('prix')->filter()->values(),
-            'formats' => Vin::where('sku', 'not like', 'PERSO-%')->distinct()->pluck('format')->filter()->values(),
-            'degres' => Vin::where('sku', 'not like', 'PERSO-%')->distinct()->pluck('degre_alcool')->filter()->values(),
-            'millesimes' => Vin::where('sku', 'not like', 'PERSO-%')->distinct()->pluck('annee')->filter()->values(),
+            /**
+             * Récupére le prix min et max
+             */
+            'prix' => [
+                'min' => Vin::where('sku', 'not like', 'PERSO-%')->min('prix'),
+                'max' => Vin::where('sku', 'not like', 'PERSO-%')->max('prix'),
+            ],
+
+
+            'format' => [
+                'min' => Vin::where('sku', 'not like', 'PERSO-%')
+                    ->whereNotNull('format')
+                    ->selectRaw('MIN(CAST(format AS UNSIGNED)) as min')
+                    ->value('min'),
+
+                'max' => Vin::where('sku', 'not like', 'PERSO-%')
+                    ->whereNotNull('format')
+                    ->selectRaw('MAX(CAST(format AS UNSIGNED)) as max')
+                    ->value('max'),
+            ],
+
+            'degres' => [
+                'min' => Vin::where('sku', 'not like', 'PERSO-%')
+                    ->whereNotNull('degre_alcool')
+                    ->min('degre_alcool'),
+
+                'max' => Vin::where('sku', 'not like', 'PERSO-%')
+                    ->whereNotNull('degre_alcool')
+                    ->max('degre_alcool'),
+            ],
+
+            'millesimes' => [
+                'min' => ($min = $millesimeQuery->min('annee')) ? (int) $min : null,
+                'max' => ($max = $millesimeQuery->max('annee')) ? (int) $max : null,
+            ],
+
             'couleur' => Vin::where('sku', 'not like', 'PERSO-%')->distinct()->pluck('couleur')->filter()->values(),
         ];
 

@@ -16,7 +16,9 @@ export default {
   props: {
     vins: Array,
   },
-  data() {},
+  data() {
+    return {};
+  },
   methods: {
     // Émet un événement "ajout-du-vin" avec le vin sélectionné en tant que payload.
     ajoutDuVin(vin) {
