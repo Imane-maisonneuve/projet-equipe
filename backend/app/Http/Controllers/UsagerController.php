@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usager;
+use App\Models\Cellier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -63,6 +64,25 @@ class UsagerController extends Controller
             'courriel' => $validated['courriel'],
             'mot_de_passe' => Hash::make($validated['mot_de_passe']),
         ]);
+
+        // Création du cellier par défaut pour le nouvel usager
+        if (!$usager) {
+            throw new HttpResponseException(response()->json([
+                'message' => 'Erreur lors de la création de l usager.'
+            ], 500));
+        }
+
+        $cellierParDefaut = Cellier::create([
+            'nom' => 'Mon cellier',
+            'usager_id' => $usager->id,
+        ]);
+
+        // Si la création du cellier par défaut échoue -> retourner une erreur
+        if (!$cellierParDefaut) {
+            throw new HttpResponseException(response()->json([
+                'message' => 'Erreur lors de la création du cellier par défaut.'
+            ], 500));
+        }
 
         return response()->json([
             'message' => 'Usager créé avec succès',
