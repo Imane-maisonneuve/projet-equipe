@@ -6,6 +6,7 @@ export const useCellierStore = defineStore("cellier", {
     bouteilleVin: [],
     cellierNom: [],
     loading: false,
+    review: null,
   }),
 
   actions: {
@@ -21,6 +22,10 @@ export const useCellierStore = defineStore("cellier", {
         );
         // Met à jour l'état avec les détails de la bouteille récupérée
         this.bouteilleVin = res.data;
+
+        if (this.bouteilleVin) {
+					await this.fetchReview(this.bouteilleVin.vin_id, this.bouteilleVin.usager_id);
+				}        
       } catch (error) {
         console.error(error);
 
@@ -32,5 +37,17 @@ export const useCellierStore = defineStore("cellier", {
         this.loading = false;
       }
     },
+    async fetchReview(vinId, usagerId) {
+			try {
+				const res = await axios.get(
+					`http://localhost:8000/api/reviews/${vinId}/${usagerId}`,
+					{ withCredentials: true }
+				);
+				this.review = res.data;
+			} catch (error) {
+				console.error(error);
+				this.review = null;
+			}
+		}    
   },
 });
