@@ -8,6 +8,7 @@ use App\Http\Controllers\CellierVinController;
 use App\Http\Controllers\UsagerController;
 use App\Http\Controllers\VinController;
 use App\Http\Controllers\ListeAchatController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,4 +86,8 @@ Route::middleware(['web', 'auth'])->group(function () {
 
     // Route pour modifier une bouteille personnalisée dans la table des vins
     Route::put('/modifier-bouteille-perso/{sku}', [VinController::class, 'modifierBouteillePersonnalisee']);
+
+    // Routes pour reviews des bouteilles
+    Route::post('/reviews', [ReviewController::class, 'storeOrUpdate']);
+    Route::get('/reviews/{vin_id}/{usager_id}', [ReviewController::class, 'show']);    
 });

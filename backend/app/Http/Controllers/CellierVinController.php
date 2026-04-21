@@ -132,6 +132,10 @@ class CellierVinController extends Controller
             'degre_alcool' => $cellierVin->vin->degre_alcool,
             'taux_sucre' => $cellierVin->vin->taux_sucre,
             'sku' => $cellierVin->vin->sku,
+            // for reviews
+            'vin_id' => $cellierVin->vin_id,
+            'usager_id' => $cellierVin->cellier->usager_id,
+
         ]);
     }
 
