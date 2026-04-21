@@ -104,6 +104,12 @@ export default {
         } else {
           if (erreur.response.data.message) {
             this.message = erreur.response.data.message;
+
+            //envoy une notification d'erreurs au catalogue, une fois qu'on y retourne
+            const notif = useNotifStore();
+            notif.montreMessage(this.message, 'erreur');
+
+            this.$router.push('/catalogue');
           }
         }
       }
