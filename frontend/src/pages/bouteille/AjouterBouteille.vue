@@ -56,7 +56,7 @@ export default {
       celliers: [],
       erreurs: {},
       cellier_id: "",
-      quantite: 0,
+      quantite: "",
       vin_id: 0,
       message: "",
       messageSucces: "",

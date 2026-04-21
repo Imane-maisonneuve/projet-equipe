@@ -10,13 +10,13 @@
     <form class="bloc-form" @submit.prevent="insererVin">
       <h1 class="profil-titre">Ajouter une bouteille</h1>
 
-      <label>Nom</label>
+      <label>Nom *</label>
       <input class="form-input" type="text" v-model="nom" />
       <div v-if="erreurs.nom" class="erreur">
         {{ erreurs.nom[0] }}
       </div>
 
-      <label>Prix</label>
+      <label>Prix *</label>
       <input
         class="form-input"
         type="number"
@@ -108,7 +108,7 @@
         {{ erreurs.couleur[0] }}
       </div>
 
-      <label>Quantité de bouteilles </label>
+      <label>Quantité de bouteilles *</label>
       <input
         class="form-input"
         type="number"
@@ -149,7 +149,7 @@ export default {
       format: "",
       annee: "",
       couleur: "",
-      quantite: 0,
+      quantite: "",
       listePays: [],
       erreurs: {},
       message: "",
@@ -196,7 +196,7 @@ export default {
         this.format = "";
         this.annee = "";
         this.couleur = "";
-        this.quantite = 0;
+        this.quantite = "";
 
         // afficher un message de succès et rediriger vers le catalogue après 2 secondes
         this.messageSucces =
