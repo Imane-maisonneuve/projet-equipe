@@ -14,6 +14,8 @@ class AuthController extends Controller
     /**
      * Connexion d'un Usager
      * faire la validation des données du formulaire
+     * @param Request $request
+     * @return json
      */
     public function store(Request $request)
     {
@@ -40,6 +42,7 @@ class AuthController extends Controller
 
     /**
      * Deconnexion de l'usager
+     * @return json
      */
     public function destroy()
     {
