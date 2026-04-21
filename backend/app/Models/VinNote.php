@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VinNotes extends Model
+class VinNote extends Model
 {
     use HasFactory;
     protected $table = 'vin_notes';

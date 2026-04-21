@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('vin_notes', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('note');
             $table->string('commentaire');
             $table->unsignedBigInteger('usager_id');
