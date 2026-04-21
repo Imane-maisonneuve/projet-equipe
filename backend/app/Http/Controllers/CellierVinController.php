@@ -24,7 +24,7 @@ class CellierVinController extends Controller
     ];
 
     /**
-     * Envoy le cellier avec les vins dans le cellier au frontend
+     * Envoy le cellier avec les vins dans le cellier au frontend.
      * @param int $id du cellierVin dans la table
      * @return json
      */
@@ -48,15 +48,9 @@ class CellierVinController extends Controller
     }
 
     /**
-     *
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     *
+     * Place les données dans la table cellier_vins.
+     * @param Request $request
+     * @return json
      */
     public function store(Request $request)
     {
@@ -142,15 +136,10 @@ class CellierVinController extends Controller
     }
 
     /**
-     *
-     */
-    public function edit($vin_id)
-    {
-        //
-    }
-
-    /**
-     *
+     * Met à jour la table celllier_vins
+     * @param Request $request
+     * @param int $vin_id
+     * @return json 
      */
     public function update(Request $request, $vin_id)
     {
@@ -183,8 +172,9 @@ class CellierVinController extends Controller
     }
 
     /**
-     * Supprime un vin dans un cellier
+     * Supprime un vin dans un cellier.
      * @param CellierVin id du cellierVin a supprimer
+     * @return json
      */
     public function destroy(CellierVin $cellierVin)
     {
