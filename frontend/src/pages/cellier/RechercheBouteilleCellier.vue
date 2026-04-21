@@ -189,6 +189,7 @@ import ColorFilter from "../../components/ColorFilter.vue";
 import ModalTri from "../../components/ModalTri.vue";
 import ModalConfirmation from "../../components/ModalConfirmation.vue";
 import { useWineStore } from "../../stores/wineStore";
+import { useAuthStore } from "../../stores/auth";
 
 import axios from "axios";
 import api, { fetchCsrfToken } from "../../api";
@@ -390,6 +391,7 @@ export default {
       this.$router.push(`/cellier-vin/${id}`);
     },
 
+    //ajoute une bouteille a la liste d'achar
     async ajouterListeAchats(idVin) {
 
       //Veut filtres les bouteilles, pour juste recuperer les bouteilles avec id concernees
@@ -402,6 +404,9 @@ export default {
       });
 
       try {
+
+        // CSRF token
+        await fetchCsrfToken();
 
         // Récupérer l'utilisateur connecté
         const authStore = useAuthStore();
@@ -417,11 +422,13 @@ export default {
           vin_id: vinId,
         });
 
-        // afficher un message de succès
-        bouteillesConcernees.forEach((bouteille) => {
-          bouteille.messageAjout = "Bouteille ajoutée à la liste d'achat !";
-          setTimeout(() => { bouteille.messageAjout = null; }, 2000);
-        });
+        if (response.status === 200 || response.status === 201){
+          // afficher un message de succès
+          bouteillesConcernees.forEach((bouteille) => {
+            bouteille.messageAjout = response.data.message || "Bouteille ajoutée à la liste d'achat !";
+            setTimeout(() => { bouteille.messageAjout = null; }, 2000);
+          });
+        }
 
       } catch (erreur) {
         // afficher message d'erreur
