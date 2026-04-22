@@ -29,6 +29,10 @@
         class="form-input"
         type="number"
         v-model.number="quantite"
+        min="0"
+        step="1"
+        @keydown="bloquerNegatif"
+        @input="corrigerValeur"
         placeholder="0"
       />
       <div v-if="erreurs.quantite" class="erreur">
@@ -45,7 +49,7 @@
 <script>
 import Navbar from "../../components/Navbar.vue";
 import api from "../../api";
-import { useNotifStore } from '../../stores/notification';
+import { useNotifStore } from "../../stores/notification";
 
 export default {
   components: {
@@ -94,10 +98,12 @@ export default {
 
         //envoy une notification au catalogue, une fois qu'on y retourne
         const notif = useNotifStore();
-        notif.montreMessage('Votre bouteille a été ajoutée au cellier avec succès!', 'bloc-modale-succes');
+        notif.montreMessage(
+          "Votre bouteille a été ajoutée au cellier avec succès!",
+          "bloc-modale-succes"
+        );
 
-        this.$router.push('/catalogue');
-
+        this.$router.push("/catalogue");
       } catch (erreur) {
         if (erreur.response.data.errors) {
           this.erreurs = erreur.response.data.errors;
@@ -107,11 +113,23 @@ export default {
 
             //envoy une notification d'erreurs au catalogue, une fois qu'on y retourne
             const notif = useNotifStore();
-            notif.montreMessage(this.message, 'erreur');
+            notif.montreMessage(this.message, "erreur");
 
-            this.$router.push('/catalogue');
+            this.$router.push("/catalogue");
           }
         }
+      }
+    },
+    // bloque nombre négatif
+    bloquerNegatif(e) {
+      if (e.key === "-" || e.key === "e") {
+        e.preventDefault();
+      }
+    },
+    // corrige nombre négatif par positif
+    corrigerValeur() {
+      if (this.quantite < 0) {
+        this.quantite = 0;
       }
     },
   },

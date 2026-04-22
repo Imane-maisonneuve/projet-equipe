@@ -113,6 +113,10 @@
         class="form-input"
         type="number"
         v-model.number="quantite"
+        min="0"
+        step="1"
+        @keydown="bloquerNegatif"
+        @input="corrigerValeur"
         placeholder="0"
       />
       <div v-if="erreurs.quantite" class="erreur">
@@ -223,6 +227,18 @@ export default {
         this.listePays = response.data.listePays || [];
       } catch (erreur) {
         this.message = erreur.response.data.message;
+      }
+    },
+    // bloque nombre négatif
+    bloquerNegatif(e) {
+      if (e.key === "-" || e.key === "e") {
+        e.preventDefault();
+      }
+    },
+    // corrige nombre négatif par positif
+    corrigerValeur() {
+      if (this.quantite < 0) {
+        this.quantite = 0;
       }
     },
   },
