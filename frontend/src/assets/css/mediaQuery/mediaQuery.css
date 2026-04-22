@@ -39,6 +39,7 @@
     flex-direction: column;
     margin-top: var(--espace-gros);
     gap: var(--espace-moyen-neg);
+    max-width: 35ch;
   }
 
   .info-media p {
@@ -128,6 +129,7 @@
     flex-direction: column;
     margin-top: var(--espace-gros);
     gap: var(--espace-moyen-neg);
+    max-width: 35ch;
   }
 
   .btn.fixed-btn {
@@ -191,6 +193,7 @@
     flex-direction: column;
     margin-top: 45px;
     gap: var(--espace-moyen-neg);
+    max-width: 35ch;
   }
 
   .couleur {
