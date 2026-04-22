@@ -1,7 +1,7 @@
 <template>
   <Navbar />
   <div class="banniere">
-    <h2 class="banniere-titre">Mon profil</h2>
+    <h1 class="banniere-titre">Mon profil</h1>
   </div>
   <!-- Affiche une notification -->
   <div v-if="notifStore.message" :class="['notif', notifStore.type]">

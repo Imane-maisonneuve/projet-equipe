@@ -10,7 +10,11 @@
   <!-- Affichage de la carte du vin dans le cellier -->
   <div class="nom-cellier">
     <div class="vin-cellier-carte">
-      <img :src="vin.image_url" :alt="vin.nom" class="cellier-img" />
+      <img
+        :src="vin.image_url"
+        :alt="'Le nom du vin est : ' + vin.nom"
+        class="cellier-img"
+      />
       <div>
         <h2 class="nom">{{ vin.nom }}</h2>
         <p class="meta">Quantité: {{ quantite }}</p>
@@ -19,25 +23,42 @@
           @click="modifierQuantiteVin(quantite - 1)"
           :disabled="quantite <= 1"
           class="btn-qte"
+          aria-label="Réduire la quantité"
         >
           <CircleMinus />
         </button>
-        <button @click="modifierQuantiteVin(quantite + 1)" class="btn-qte">
+        <button
+          @click="modifierQuantiteVin(quantite + 1)"
+          class="btn-qte"
+          aria-label="Augmenter la quantité"
+        >
           <CirclePlus />
         </button>
       </div>
     </div>
     <!-- Boutons pour voir les détails, ajouter à la liste d'achats et supprimer le vin du cellier -->
     <div class="bouton-cellier">
-      <button class="btn btn-cellier" @click="voirDetail">
+      <button
+        class="btn btn-cellier"
+        @click="voirDetail"
+        aria-label="Voir les détails"
+      >
         <Eye class="icons" />
       </button>
       <!-- Bouton pour ajouter le vin à la liste d'achats -->
-      <button class="btn btn-cellier" @click="ajouterListeAchats">
+      <button
+        class="btn btn-cellier"
+        @click="ajouterListeAchats"
+        aria-label="Ajouter à la liste d'achats"
+      >
         <ShoppingBasket class="icons" />
       </button>
       <!-- Bouton pour supprimer le vin du cellier, émet un événement vers le parent pour ouvrir une modale de confirmation -->
-      <button class="btn btn-cellier" @click="$emit('ouvrir-modale', id)">
+      <button
+        class="btn btn-cellier"
+        @click="$emit('ouvrir-modale', id)"
+        aria-label="Supprimer du cellier"
+      >
         <Trash class="icons" />
       </button>
     </div>

@@ -43,7 +43,8 @@ body {
   --rose-pale: rgb(246, 226, 226);
 
   /* Tailles de police et d'espacement en REM */
-  --fs-12: 0.75rem;
+  /* --fs-12: 0.75rem; */
+  --fs-12: 0.875rem;
   --fs-14: 0.875rem;
   --fs-16: 1rem;
   --fs-18: 1.125rem;
@@ -75,4 +76,8 @@ body {
   --espace-gros: 50px;
   --espace-gros-plus: 70px;
   --espace-enorme: 80px;
+}
+
+input {
+  font-size: 16px !important;
 }

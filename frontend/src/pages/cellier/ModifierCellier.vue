@@ -5,8 +5,13 @@
     <form @submit.prevent="modifierCellier" class="bloc-form">
       <h1 class="profil-titre">Modifier le cellier</h1>
       <div>
-        <label>Choisir un nouveau nom</label>
-        <input type="text" v-model="nom" placeholder="Nouveau nom de cellier" />
+        <label for="nom-cellier">Choisir un nouveau nom</label>
+        <input
+          id="nom-cellier"
+          type="text"
+          v-model="nom"
+          placeholder="Nouveau nom de cellier"
+        />
         <div v-if="erreurs.nom" class="erreur">
           {{ erreurs.nom[0] }}
         </div>

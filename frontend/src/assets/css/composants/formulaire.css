@@ -101,6 +101,7 @@ body {
   margin-bottom: 5px;
   margin-top: -5px;
   color: var(--rouge-framboise-fonce);
+  text-align: center;
 }
 
 @media screen and (max-width: 910px) {

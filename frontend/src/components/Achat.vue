@@ -2,7 +2,11 @@
   <div class="nom-cellier">
     <!-- Afficher les détails du vin -->
     <div class="vin-cellier-carte">
-      <img :src="vin.image_url" :alt="vin.nom" class="cellier-img" />
+      <img
+        :src="vin.image_url"
+        :alt="'Le nom du vin est : ' + vin.nom"
+        class="cellier-img"
+      />
       <div>
         <h2 class="nom">{{ vin.nom }}</h2>
         <p>{{ vin.couleur }} – {{ vin.pays }}</p>
@@ -12,13 +16,25 @@
 
     <!-- Boutons d'action pour ajouter au cellier, voir les détails, ou supprimer -->
     <div class="bouton-cellier">
-      <button class="btn btn-cellier" @click="ajouterAuCellier">
+      <button
+        class="btn btn-cellier"
+        @click="ajouterAuCellier"
+        aria-label="Ajouter au cellier"
+      >
         <Plus class="icons" />
       </button>
-      <button class="btn btn-cellier" @click="voirDetail">
+      <button
+        class="btn btn-cellier"
+        @click="voirDetail"
+        aria-label="Voir les détails"
+      >
         <Eye class="icons" />
       </button>
-      <button class="btn btn-cellier" @click="$emit('ouvrir-modale', id)">
+      <button
+        class="btn btn-cellier"
+        @click="$emit('ouvrir-modale', id)"
+        aria-label="Supprimer"
+      >
         <Trash class="icons" />
       </button>
     </div>

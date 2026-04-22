@@ -103,6 +103,7 @@
         type="text"
         v-model="termeDeRecherche"
         placeholder="Rechercher une bouteille de vin par nom..."
+        aria-label="Rechercher un vin"
         @input="rechercherVins"
         class="search-input"
       />

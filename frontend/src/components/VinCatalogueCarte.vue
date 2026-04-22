@@ -11,7 +11,11 @@
   <div class="catalogue-carte">
     <div class="media">
       <div class="image-conteneur">
-        <img :src="vin.image_url" class="image" :alt="vin.nom" />
+        <img
+          :src="vin.image_url"
+          class="image"
+          :alt="'Le nom du vin est : ' + vin.nom"
+        />
         <div class="prix">{{ prixFormate }}$</div>
       </div>
 
@@ -37,6 +41,7 @@
           <button
             class="liste-btn catalogue-carte-btn btn-achat"
             @click="ajouterListeAchats"
+            aria-label="Ajouter à la liste d'achats"
           >
             <ShoppingBasket class="icons" />
           </button>

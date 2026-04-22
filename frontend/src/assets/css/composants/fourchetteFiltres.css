@@ -15,9 +15,10 @@
 .values {
   display: flex;
   justify-content: space-between;
-  font-size: 0.1rem;
+  /* font-size: 0.1rem; */
   color: #ddd;
   padding: 0 5px;
+  display: none;
 }
 
 .app-filtre {

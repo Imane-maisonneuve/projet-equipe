@@ -10,6 +10,7 @@
         v-model="anneeSelectionnee"
         @change="ajouterSelection"
         class="select"
+        aria-label="Choisir une année"
       >
         <option disabled value="">Choisir une année...</option>
         <option v-for="annee in anneeDisponible" :key="annee" :value="annee">

@@ -10,25 +10,33 @@
     <form class="bloc-form" @submit.prevent="insererVin">
       <h1 class="profil-titre">Ajouter une bouteille</h1>
 
-      <label>Nom *</label>
-      <input class="form-input" type="text" v-model="nom" />
+      <label for="nom">Nom *</label>
+      <input
+        id="nom"
+        class="form-input"
+        type="text"
+        v-model="nom"
+        aria-label="nom"
+      />
       <div v-if="erreurs.nom" class="erreur">
         {{ erreurs.nom[0] }}
       </div>
 
-      <label>Prix *</label>
+      <label for="prix">Prix *</label>
       <input
+        id="prix"
         class="form-input"
         type="number"
         v-model="prix"
         placeholder="Ex: 24.99"
+        aria-label="prix"
       />
       <div v-if="erreurs.prix" class="erreur">
         {{ erreurs.prix[0] }}
       </div>
 
-      <label>Pays</label>
-      <select v-model="pays">
+      <label for="pays">Pays</label>
+      <select id="pays" v-model="pays" aria-label="Choisir un pays">
         <option disabled value="">Choisir un pays</option>
         <option v-for="pays in listePays" :key="pays" :value="pays">
           {{ pays }}
@@ -38,64 +46,89 @@
         {{ erreurs.pays[0] }}
       </div>
 
-      <label>Région</label>
-      <input class="form-input" type="text" v-model="region" />
+      <label for="region">Région</label>
+      <input
+        id="region"
+        class="form-input"
+        type="text"
+        v-model="region"
+        aria-label="Région"
+      />
       <div v-if="erreurs.region" class="erreur">
         {{ erreurs.region[0] }}
       </div>
 
-      <label>Cépage</label>
-      <input class="form-input" type="text" v-model="cepage" />
+      <label for="cepage">Cépage</label>
+      <input
+        id="cepage"
+        class="form-input"
+        type="text"
+        v-model="cepage"
+        aria-label="Cépage"
+      />
       <div v-if="erreurs.cepage" class="erreur">
         {{ erreurs.cepage[0] }}
       </div>
 
-      <label>Degré d'alcool</label>
+      <label for="degre_alcool">Degré d'alcool</label>
       <input
+        id="degre_alcool"
         class="form-input"
         type="text"
         v-model="degre_alcool"
         placeholder="Ex: 13.5"
+        aria-label="Degré d'alcool"
       />
       <div v-if="erreurs.degre_alcool" class="erreur">
         {{ erreurs.degre_alcool[0] }}
       </div>
 
-      <label>Taux de sucre</label>
+      <label for="taux_sucre">Taux de sucre</label>
       <input
+        id="taux_sucre"
         class="form-input"
         type="text"
         v-model="taux_sucre"
         placeholder="Ex: 3.2"
+        aria-label="Taux de sucre"
       />
       <div v-if="erreurs.taux_sucre" class="erreur">
         {{ erreurs.taux_sucre[0] }}
       </div>
 
-      <label>Format (en ml)</label>
+      <label for="format">Format (en ml)</label>
       <input
+        id="format"
         class="form-input"
         type="text"
         v-model="format"
         placeholder="Ex: 750"
+        aria-label="Format en ml"
       />
       <div v-if="erreurs.format" class="erreur">
         {{ erreurs.format[0] }}
       </div>
 
-      <label>Année</label>
+      <label for="annee">Année</label>
       <input
+        id="annee"
         class="form-input"
         type="text"
         v-model="annee"
         placeholder="Ex: 2020"
+        aria-label="Année de production"
       />
       <div v-if="erreurs.annee" class="erreur">
         {{ erreurs.annee[0] }}
       </div>
 
-      <label>Couleur</label>
-      <select class="form-input" v-model="couleur">
+      <label for="couleur">Couleur</label>
+      <select
+        id="couleur"
+        class="form-input"
+        v-model="couleur"
+        aria-label="Choisir une couleur"
+      >
         <option disabled value="">Choisir une couleur</option>
         <option value="Rouge">Rouge</option>
         <option value="Blanc">Blanc</option>
@@ -108,12 +141,14 @@
         {{ erreurs.couleur[0] }}
       </div>
 
-      <label>Quantité de bouteilles *</label>
+      <label for="quantite">Quantité de bouteilles *</label>
       <input
+        id="quantite"
         class="form-input"
         type="number"
         v-model.number="quantite"
         placeholder="0"
+        aria-label="Quantité de bouteilles"
       />
       <div v-if="erreurs.quantite" class="erreur">
         {{ erreurs.quantite[0] }}

@@ -15,6 +15,7 @@
     <select
       :value="perPage"
       @change="$emit('changePerPage', $event.target.value)"
+      aria-label="Choisir le nombre d'items par page"
     >
       <option :value="12">12</option>
       <option :value="24">24</option>

@@ -2,7 +2,7 @@
   <!-- Page dedie à la connexion des usagers -->
   <div class="container">
     <div class="bloc-img">
-      <img src="../../assets/img/logo3.svg" />
+      <img src="../../assets/img/logo3.svg" alt="Logo de l'application" />
     </div>
 
     <!-- Affiche une notification -->
@@ -77,7 +77,7 @@ export default {
         });
 
         //si la connexion a bien reussi
-        if (response.status === 200){
+        if (response.status === 200) {
           // Mise à jour du store utilisateur
           const authStore = useAuthStore();
           await authStore.fetchUsager();
@@ -88,8 +88,6 @@ export default {
           // Redirection vers le catalogue
           this.$router.push("/catalogue");
         }
-
-
       } catch (err) {
         // Catch les erreurs
         if (err.response && err.response.status === 422) {
@@ -99,17 +97,14 @@ export default {
           } else {
             this.erreur = err.response.data.message || "Erreur de validation";
           }
-        }
-        else if (err.response && err.response.status === 401) {
-          this.erreur = err.response.data.message || "Courriel ou mot de passe incorrect";
-        }
-        else if (err.response) {
+        } else if (err.response && err.response.status === 401) {
+          this.erreur =
+            err.response.data.message || "Courriel ou mot de passe incorrect";
+        } else if (err.response) {
           this.erreur = err.response.data.message || "Erreur de connexion";
-        }
-        else if (err.request) {
+        } else if (err.request) {
           this.erreur = "Impossible de joindre le serveur";
-        }
-        else {
+        } else {
           this.erreur = "Une erreur est survenue";
         }
         // arreter l'affichage de 'Connexion'

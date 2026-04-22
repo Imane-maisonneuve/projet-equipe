@@ -13,17 +13,26 @@
     </div>
     <!-- Boutons d'action pour voir les détails, modifier ou supprimer un cellier -->
     <div class="bouton-cellier">
-      <button class="btn btn-cellier" @click="voirDetailVinCellier">
+      <button
+        class="btn btn-cellier"
+        @click="voirDetailVinCellier"
+        aria-label="Voir les détails"
+      >
         <Eye class="icons" />
       </button>
 
-      <button class="btn btn-cellier" @click="modifierCellier">
+      <button
+        class="btn btn-cellier"
+        @click="modifierCellier"
+        aria-label="Modifier"
+      >
         <PencilLine class="icons" />
       </button>
 
       <button
         class="btn btn-cellier"
         @click="$emit('ouvrir-modale', cellier.id)"
+        aria-label="Supprimer"
       >
         <Trash class="icons" />
       </button>

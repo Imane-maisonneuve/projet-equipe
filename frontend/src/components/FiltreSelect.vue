@@ -6,7 +6,12 @@
     </div>
 
     <div v-show="open" class="select-box">
-      <select v-model="selectedItem" @change="ajouterSelection" class="select">
+      <select
+        v-model="selectedItem"
+        @change="ajouterSelection"
+        class="select"
+        aria-label="Sélectionner un filtre"
+      >
         <option disabled value="">Sélectionner...</option>
         <option v-for="item in selectionsDisponible" :key="item" :value="item">
           {{ item }}

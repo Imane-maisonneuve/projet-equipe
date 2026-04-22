@@ -1,7 +1,10 @@
 <template>
   <!-- logo est composé d'une image et d'un titre, il est centré horizontalement et verticalement sur les écrans larges -->
   <div class="logo">
-    <img src="../assets/img/logo3.svg" alt="logo" />
+    <img
+      src="../assets/img/logo3.svg"
+      alt="Logo de Vino, application de gestion de cave à vin"
+    />
     <h1 class="logo-titre">Catalogue des vins</h1>
   </div>
 </template>

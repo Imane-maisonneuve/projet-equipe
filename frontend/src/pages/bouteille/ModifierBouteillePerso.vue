@@ -27,7 +27,7 @@
       </div>
 
       <label>Pays</label>
-      <select v-model="pays">
+      <select v-model="pays" aria-label="Choisir un pays">
         <option disabled value="">Choisir un pays</option>
         <option v-for="pays in listePays" :key="pays" :value="pays">
           {{ pays }}
@@ -94,7 +94,11 @@
       </div>
 
       <label>Couleur</label>
-      <select class="form-input" v-model="couleur">
+      <select
+        class="form-input"
+        v-model="couleur"
+        aria-label="Choisir une couleur"
+      >
         <option disabled value="">Choisir une couleur</option>
         <option value="Rouge">Rouge</option>
         <option value="Blanc">Blanc</option>

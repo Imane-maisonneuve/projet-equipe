@@ -3,10 +3,15 @@
   <!-- Formulaire de création de cellier -->
   <div>
     <form @submit.prevent="creerCellier" class="bloc-form">
-      <h2 class="profil-titre">Création de cellier</h2>
+      <h1 class="profil-titre">Création de cellier</h1>
       <div>
-        <label>Choisir un nom</label>
-        <input type="text" v-model="nom" placeholder="Votre nom de cellier" />
+        <label for="nom-cellier">Choisir un nom</label>
+        <input
+          id="nom-cellier"
+          type="text"
+          v-model="nom"
+          placeholder="Votre nom de cellier"
+        />
         <div v-if="erreurs.nom" class="erreur">
           {{ erreurs.nom[0] }}
         </div>

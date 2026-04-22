@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="bloc-img">
-      <img src="../../assets/img/logo3.svg" />
+      <img src="../../assets/img/logo3.svg" alt="Logo de l'application" />
     </div>
     <!-- Formulaire de création de compte -->
     <form @submit.prevent="gererSoumission" class="bloc-form">
@@ -92,18 +92,17 @@ export default {
           return true;
         }
         return false;
-
       } catch (erreur) {
         if (erreur.response && erreur.response.status === 422) {
           this.erreurs = erreur.response.data.erreurs;
-        }
-        else if (erreur.response) {
-          this.erreur = erreur.response.data.message || "Erreur lors de la création du compte";
-        }
-        else if (erreur.request) {
-          this.erreur = "Impossible de joindre le serveur. Vérifiez votre connexion.";
-        }
-        else {
+        } else if (erreur.response) {
+          this.erreur =
+            erreur.response.data.message ||
+            "Erreur lors de la création du compte";
+        } else if (erreur.request) {
+          this.erreur =
+            "Impossible de joindre le serveur. Vérifiez votre connexion.";
+        } else {
           this.erreur = "Une erreur est survenue lors de la création du compte";
         }
         this.creationReussie = false;
@@ -125,7 +124,7 @@ export default {
         });
 
         //si la connexion a bien reussi
-        if (response.status === 200){
+        if (response.status === 200) {
           // Mise à jour du store utilisateur
           const authStore = useAuthStore();
           await authStore.fetchUsager();
@@ -137,8 +136,6 @@ export default {
           // Redirection vers le catalogue
           this.$router.push("/catalogue");
         }
-
-
       } catch (err) {
         // Catch les erreurs
         if (err.response && err.response.status === 422) {
@@ -148,17 +145,14 @@ export default {
           } else {
             this.erreur = err.response.data.message || "Erreur de validation";
           }
-        }
-        else if (err.response && err.response.status === 401) {
-          this.erreur = err.response.data.message || "Courriel ou mot de passe incorrect";
-        }
-        else if (err.response) {
+        } else if (err.response && err.response.status === 401) {
+          this.erreur =
+            err.response.data.message || "Courriel ou mot de passe incorrect";
+        } else if (err.response) {
           this.erreur = err.response.data.message || "Erreur de connexion";
-        }
-        else if (err.request) {
+        } else if (err.request) {
           this.erreur = "Impossible de joindre le serveur";
-        }
-        else {
+        } else {
           this.erreur = "Une erreur est survenue";
         }
         // arreter l'affichage de 'Connexion'
