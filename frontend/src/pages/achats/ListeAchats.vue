@@ -4,15 +4,16 @@
   <div class="banniere">
     <h2 class="banniere-titre">Liste d'achats</h2>
   </div>
-  <!-- Affiche une notification -->
-  <div v-if="notifStore.message" :class="['notif', notifStore.type]">
-    {{ notifStore.message }}
-  </div>
+
   <!-- Description de la page -->
   <p class="catalogue-description">
     Ajoutez vos vins à vos celliers, consultez-les ou supprimez-les selon vos
     besoins!
   </p>
+  <!-- Affiche une notification -->
+  <div v-if="notifStore.message" :class="['notif', notifStore.type]">
+    {{ notifStore.message }}
+  </div>
   <!-- Affichage de chaque vin de la liste d'achat -->
   <Achat
     v-for="vin in vins"
@@ -37,7 +38,7 @@ import Navbar from "../../components/Navbar.vue";
 import Achat from "../../components/Achat.vue";
 import ModalConfirmation from "../../components/ModalConfirmation.vue";
 import api, { fetchCsrfToken } from "../../api";
-import { useNotifStore } from '../../stores/notification';
+import { useNotifStore } from "../../stores/notification";
 
 export default {
   components: {

@@ -52,12 +52,12 @@ button:disabled {
 
 select {
   border: none;
-  background: transparent;
+  /* background: transparent; */
   font-size: 0.85rem;
-  font-weight: 600;
-  color: #64748b;
+  /* font-weight: 600; */
+  /* color: #64748b; */
   cursor: pointer;
   outline: none;
   padding-right: 4px;
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
 }
