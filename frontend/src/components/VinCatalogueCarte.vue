@@ -120,6 +120,8 @@ export default {
       if (c.includes("orange")) return "#e67e22";
       if (c.includes("ambré(e)") || c.includes("ambre")) return "#FFBF00";
       if (c.includes("doré(e)") || c.includes("dore")) return "#FFD700";
+      if (c.includes("brun(e)") || c.includes("brune")) return "#964B00";
+      if (c.includes("roux") || c.includes("rousse")) return "#F7D094";
 
       return "#999";
     },
