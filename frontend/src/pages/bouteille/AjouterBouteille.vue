@@ -25,10 +25,17 @@
       </div>
       <!-- Champ pour saisir la quantité de bouteilles à ajouter -->
       <label>Quantité de bouteilles </label>
-      <input type="number" v-model.number="quantite" placeholder="0" />
-      <div v-if="erreurs.quantite" class="erreur">
-        {{ erreurs.quantite[0] }}
-      </div>
+      <input
+        class="form-input"
+        type="number"
+        v-model.number="quantite"
+        min="0"
+        step="1"
+        @keydown="bloquerNegatif"
+        @input="corrigerValeur"
+        placeholder="0"
+      />
+
       <button type="submit" class="signup-btn btn">Enregistrer</button>
       <div v-if="message" class="erreur">
         {{ message }}
@@ -91,8 +98,11 @@ export default {
         const notif = useNotifStore();
         notif.montreMessage(
           "Votre bouteille a été ajoutée au cellier avec succès!",
-          "bloc-modale-succes",
+          "bloc-modale-succes"
         );
+
+        this.$router.push("/catalogue");
+        this.$router.back();
 
         this.$router.back();
       } catch (erreur) {
@@ -106,9 +116,22 @@ export default {
             const notif = useNotifStore();
             notif.montreMessage(this.message, "erreur");
 
+            this.$router.push("/catalogue");
             this.$router.back();
           }
         }
+      }
+    },
+    // bloque nombre négatif
+    bloquerNegatif(e) {
+      if (e.key === "-" || e.key === "e") {
+        e.preventDefault();
+      }
+    },
+    // corrige nombre négatif par positif
+    corrigerValeur() {
+      if (this.quantite < 0) {
+        this.quantite = 0;
       }
     },
   },
