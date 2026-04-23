@@ -37,7 +37,7 @@
   .info-media {
     display: flex;
     flex-direction: column;
-    margin-top: var(--espace-gros);
+    margin-top: 40px;
     gap: var(--espace-moyen-neg);
     max-width: 35ch;
   }
@@ -127,7 +127,7 @@
   .info-media {
     display: flex;
     flex-direction: column;
-    margin-top: var(--espace-gros);
+    margin-top: 35px;
     gap: var(--espace-moyen-neg);
     max-width: 35ch;
   }
@@ -191,7 +191,7 @@
   .info-media {
     display: flex;
     flex-direction: column;
-    margin-top: 45px;
+    margin-top: 35px;
     gap: var(--espace-moyen-neg);
     max-width: 35ch;
   }
@@ -280,8 +280,17 @@
 }
 
 @media (max-width: 321px) {
+
   .catalogue-carte {
     max-width: 89%;
     margin-right: 45px;
+  }
+
+  .info-media {
+    display: flex;
+    flex-direction: column;
+    margin-top: 35px;
+    gap: var(--espace-moyen-neg);
+    max-width: 25ch;
   }
 }

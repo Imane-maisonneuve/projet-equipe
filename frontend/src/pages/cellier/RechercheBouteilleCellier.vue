@@ -64,13 +64,13 @@
         v-model="selected.cepages"
       />
 
-      <FourchetteFiltre
+      <!-- <FourchetteFiltre
         v-if="filters.prix"
         :key="reinitialiser"
         v-model="selected.prix"
         :minLimit="safeNumber(filters.prix.min)"
         :maxLimit="safeNumber(filters.prix.max)"
-      />
+      /> -->
 
       <FilterSelect
         :key="reinitialiser"

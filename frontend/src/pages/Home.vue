@@ -57,13 +57,13 @@
             :items="cepages"
             v-model="selected.cepages"
           />
-          <FourchetteFiltre
+          <!-- <FourchetteFiltre
             :key="reinitialiser"
             v-if="prix && prix.min !== undefined"
             v-model="selected.prix"
             :minLimit="prix.min"
             :maxLimit="prix.max"
-          />
+          /> -->
           <FilterSelect
             :key="reinitialiser"
             label="Format (ml)"
