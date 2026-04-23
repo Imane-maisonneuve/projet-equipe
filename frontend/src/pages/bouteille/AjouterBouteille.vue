@@ -30,7 +30,7 @@
         class="form-input"
         type="number"
         v-model.number="quantite"
-        min="0"
+        min="1"
         step="1"
         @keydown="bloquerNegatif"
         @input="corrigerValeur"
@@ -103,7 +103,7 @@ export default {
         const notif = useNotifStore();
         notif.montreMessage(
           "Votre bouteille a été ajoutée au cellier avec succès!",
-          "bloc-modale-succes",
+          "bloc-modale-succes"
         );
 
         this.$router.back();
