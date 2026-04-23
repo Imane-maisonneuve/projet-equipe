@@ -249,7 +249,7 @@
 .catalogue-description {
   font-size: var(--fs-18);
   color: var(--gris-fonce);
-  padding: 10px 0;
+  padding: 5px 0;
   text-align: center;
 }
 
@@ -338,12 +338,6 @@
   width: 1px;
   height: 20px;
   background-color: #ddd;
-}
-
-.catalogue-description {
-  text-align: center;
-  color: #666;
-  margin-bottom: 2rem;
 }
 
 .espacement {
